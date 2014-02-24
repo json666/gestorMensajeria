@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:core="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.3.xsd
+		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.9.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<mvc:annotation-driven />
+
+	<context:component-scan base-package="bo.gob.aduana.sga.gestormensajeria" />
+
+	<mongo:auditing auditor-aware-ref="auditor" />
+	<bean id="auditor"
+		class="bo.gob.aduana.sga.gestormensajeria.service.impl.AuditorServiceImpl" />
+
+	<context:property-placeholder location="classpath:mongo.properties,classpath:activeMQ.properties" />
+
+	<!-- MongoTemplate for connecting and quering the documents in the database -->
+	<mongo:mongo id="mongo" host="${mongo.host}" port="${mongo.port}" />
+	<mongo:db-factory id="mongoDbFactory" mongo-ref="mongo"
+		dbname="${mongo.dbname}" username="${mongo.username}" password="${mongo.password}" />
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+	</bean>
+
+	<mongo:mapping-converter id="converter"
+		db-factory-ref="mongoDbFactory" />
+
+	<mongo:repositories base-package="bo.gob.aduana.sga.gestormensajeria.repository" />
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+	<!-- ActiveMQ Config Beans -->
+
+	<bean id="placeholderConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:activeMQ.properties" />
+	</bean>
+
+	<!-- Activemq connection factory -->
+	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL">
+			<value>${activemq.url}</value>
+		</property>
+	</bean>
+
+	<!-- ConnectionFactory Definition -->
+	<bean id="local.connectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<constructor-arg ref="connectionFactory" />
+	</bean>
+
+	<!-- JmsTemplate Correo Definition -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="defaultDestination" />
+		<property name="messageConverter" ref="messageConverter" />
+		<property name="sessionTransacted" value="true" />
+	</bean>
+
+	<!-- Default Destination Topic Definition Correo -->
+	<bean id="defaultDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0" value="${activemq.correo}" />
+	</bean>
+	<bean id="messageConverter"
+		class="org.springframework.jms.support.converter.SimpleMessageConverter" />
+
+	<bean id="jmsTemplateCopy" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="messageConverter" ref="messageConverter" />
+		<property name="defaultDestination" ref="defaultDestinationCopy" />
+		<property name="sessionTransacted" value="true" />
+	</bean>
+
+	<bean id="defaultDestinationCopy" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg index="0"
+			value="${activemq.correo.copia}" />
+	</bean>
+
+	<!-- Message Sender Correo Definition -->
+	<bean id="messageSender"
+		class="bo.gob.aduana.sga.gestormensajeria.service.impl.MessageSenderEmailImpl">
+		<constructor-arg index="0" ref="jmsTemplate" />
+	</bean>
+
+	<!-- Message Receiver Definition -->
+	<bean id="messageReceiver" class="bo.gob.aduana.sga.gestormensajeria.jms.MessageReceiver">
+	</bean>
+
+	<bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destinationName" value="${activemq.correo}" />
+		<property name="messageListener" ref="messageReceiver" />
+	</bean>
+
+</beans>
