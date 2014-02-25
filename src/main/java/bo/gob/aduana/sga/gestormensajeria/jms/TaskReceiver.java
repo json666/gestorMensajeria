@@ -3,6 +3,7 @@ package bo.gob.aduana.sga.gestormensajeria.jms;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -49,20 +50,30 @@ public class TaskReceiver implements MessageListener {
 				SimpleDateFormat format = new SimpleDateFormat(
 						"yyyy/MM/dd HH:mm:ss");
 				String currentDate = format.format(date);
+				
+				String eventStr=json.get("evento").toString();
+				StringTokenizer eventoTkn=new StringTokenizer(eventStr,",");
+				String componenteButtonInit="<button class='btn btn-mini' id='btn_detalle'>";
+				String componenteButtonEnd="</button>";
+				String object = "";
+				while (eventoTkn.hasMoreElements()) {
+					object+= componenteButtonInit+(String)eventoTkn.nextElement()+componenteButtonEnd;
+					
+				}
 
-				tarea = new Tarea(json.get("tipo").toString(), 
-								json.get("remitente").toString(),
-								null,
-								currentDate, 
-								json.get("cuerpo").toString(), 
-								null, 
-								json.get("destinatario").toString(), 
-								json.get("url").toString(), 
-								json.get("evento").toString(), 
-								json.get("proceso").toString(), 
-								json.get("tipoTramite").toString(), 
-								json.get("nroTramite").toString(), 
-								json.get("estado").toString());
+				tarea = new Tarea(json.get("tipo").toString().toUpperCase(), 
+						json.get("remitente").toString(), 
+						null, 
+						currentDate, 
+						json.get("cuerpo").toString(), 
+						null, 
+						json.get("destinatario").toString(), 
+						json.get("url").toString(), 
+						object, 
+						json.get("proceso").toString(),
+						json.get("tipoTramite").toString(), 
+						json.get("nroTramite").toString(), 
+						json.get("estado").toString());
 				try {
 					taskimpl.crear(tarea);
 				} catch (Exception e) {

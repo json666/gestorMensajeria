@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -111,6 +113,24 @@ public class MensajeTest {
 		List<Tarea> mensajeListTarea = tsl.listAll();
 		System.out.println("LISTA DE TAREAS debe contener elementos: "
 				+ mensajeListTarea.size());
+		for (Iterator iterator = mensajeListTarea.iterator(); iterator
+				.hasNext();) {
+			Tarea tarea = (Tarea) iterator.next();
+			System.out.println("-------------------o----------------------");
+			System.out.println("value 1:"+tarea.getRemitente());
+			System.out.println("value 2:"+tarea.getEvento());
+			String tareaStr=tarea.getEvento();
+			StringTokenizer stoken=new StringTokenizer(tareaStr,",");
+			while (stoken.hasMoreElements()) {
+				String componentButtomInit="<button class='btn btn-mini' id='btn_detalle'>";
+				String componentButtomEnd="</button>";
+				System.out.print(componentButtomInit+stoken.nextElement().toString().replace(" ", "_")+componentButtomEnd);
+				//String tkn=stoken.nextElement().toString();
+				//System.out.print(tkn.replace(" ","_").toLowerCase());
+			}
+			System.out.println();
+			System.out.println("value 3:"+tarea.getProceso());
+		}
 
 	}
 	

@@ -11,11 +11,11 @@ public class Tarea extends BaseEntity {
 	private String remitente;
 	private Long tiempo;
 	private String fecha;
-	String cuerpo;
+	private String cuerpo;
 	private HashMap<String, Object> objetoProcesado;
 	private String destinatario;
 	private String url;
-	public String evento;
+	private String evento;
 	private String proceso;
 	private String tipoTramite;
 	private String nroTramite;
@@ -40,11 +40,11 @@ public class Tarea extends BaseEntity {
 		this.remitente = remitente;
 		this.tiempo = tiempo;
 		this.fecha = fecha;
-		this.cuerpo = cuerpo;
+		this.setCuerpo(cuerpo);
 		this.objetoProcesado = objetoProcesado;
 		this.destinatario = destinatario;
 		this.url = url;
-		this.evento = evento;
+		this.setEvento(evento);
 		this.proceso = proceso;
 		this.tipoTramite = tipoTramite;
 		this.nroTramite = nroTramite;
@@ -137,6 +137,14 @@ public class Tarea extends BaseEntity {
 
 	public void setNroTramite(String nroTramite) {
 		this.nroTramite = nroTramite;
+	}
+
+	public String getEvento() {
+		return evento;
+	}
+
+	public void setEvento(String evento) {
+		this.evento = evento;
 	}
 
 }
