@@ -19,7 +19,8 @@
 	<bean id="auditor"
 		class="bo.gob.aduana.sga.gestormensajeria.service.impl.AuditorServiceImpl" />
 
-	<context:property-placeholder location="classpath:mongo.properties,classpath:activeMQ.properties" />
+	<context:property-placeholder
+		location="classpath:mongo.properties,classpath:activeMQ.properties" />
 
 	<!-- MongoTemplate for connecting and quering the documents in the database -->
 	<mongo:mongo id="mongo" host="${mongo.host}" port="${mongo.port}" />
@@ -45,11 +46,8 @@
 		<property name="location" value="classpath:activeMQ.properties" />
 	</bean>
 
-	<!-- Activemq connection factory -->
 	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-		<property name="brokerURL">
-			<value>${activemq.url}</value>
-		</property>
+		<property name="brokerURL" value="${activemq.url}" />
 	</bean>
 
 	<!-- ConnectionFactory Definition -->
@@ -57,7 +55,7 @@
 		class="org.springframework.jms.connection.CachingConnectionFactory">
 		<constructor-arg ref="connectionFactory" />
 	</bean>
-
+	<!-- ActiveMQ Email -->
 	<!-- JmsTemplate Correo Definition -->
 	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
@@ -95,10 +93,51 @@
 	<bean id="messageReceiver" class="bo.gob.aduana.sga.gestormensajeria.jms.MessageReceiver">
 	</bean>
 
+
 	<bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="destinationName" value="${activemq.correo}" />
 		<property name="messageListener" ref="messageReceiver" />
 	</bean>
+	<!-- End ActiveMQ Email -->
+	<!-- ActiveMQ Task -->
+	<bean id="jmsTemplateTarea" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="defaultDestinationTarea" />
+		<property name="messageConverter" ref="messageConverter" />
+		<property name="sessionTransacted" value="true" />
+	</bean>
+	<!-- Default Destination Topic Definition Correo -->
+	<bean id="defaultDestinationTarea" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0" value="${activemq.tarea}" />
+	</bean>
+	
+	<!-- ActiveMQ Task -->
+	<bean id="jmsTemplateTareaCopia" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="defaultDestinationTareaCopia" />
+		<property name="messageConverter" ref="messageConverter" />
+		<property name="sessionTransacted" value="true" />
+	</bean>
+	<!-- Default Destination Topic Definition Correo -->
+	<bean id="defaultDestinationTareaCopia" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg index="0" value="${activemq.tarea.copia}" />
+	</bean>
+	
+	<!-- Message Sender Correo Definition -->
+	<bean id="messageSenderTask"
+		class="bo.gob.aduana.sga.gestormensajeria.service.impl.MessageTaskImpl">
+		<constructor-arg index="0" ref="jmsTemplateTarea" />
+	</bean>
+	
+	<!-- Message Receiver Definition -->
+	<bean id="taskReceiver" class="bo.gob.aduana.sga.gestormensajeria.jms.TaskReceiver">
+	</bean>
+	<bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destinationName" value="${activemq.tarea}" />
+		<property name="messageListener" ref="taskReceiver" />
+	</bean>
+	<!-- End ActiveMQ Task -->
 
 </beans>

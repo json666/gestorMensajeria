@@ -228,6 +228,7 @@
 		</profile>
 		<profile>
 			<id>test</id>
+			
 			<properties>
 				<mongo.host>10.100.70.102</mongo.host>
 				<mongo.port>27019</mongo.port>
@@ -279,7 +280,7 @@
 			<properties>
 				<activemq.url />
 				<activemq.port />
-				<activemq.number_port/>
+				<activemq.number_port />
 				<activemq.user />
 				<activemq.password />
 				<activemq.transacted_session />

@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+
+
 import bo.gob.aduana.sga.gestormensajeria.service.MensajeService;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageSender;
+import bo.gob.aduana.sga.gestormensajeria.service.MessageTask;
+import bo.gob.aduana.sga.gestormensajeria.service.TareaService;
 import bo.gob.aduana.sga.gestormensajeria.utils.JsonResult;
 
 
@@ -30,6 +34,14 @@ public class MensajeRESTController {
 	@Autowired(required=true)
 	private MessageSender<String> messageSender;
 	
+	@Autowired
+	private TareaService tarea;
+	
+	@Autowired(required=true)
+	private MessageTask<String> messageTask;
+	
+	
+	
 	@RequestMapping(value = "/mensajes", method = RequestMethod.GET)
     @ResponseBody
     public JsonResult listAll() {
@@ -43,5 +55,19 @@ public class MensajeRESTController {
 		messageSender.send(message);
 		return new JsonResult("success", null, "Mensaje Enviado");
 	}
+	
+	@RequestMapping(value = "/enviar/tarea", method = RequestMethod.POST)
+	public @ResponseBody
+	JsonResult createTask(@RequestBody String message) {
+		System.out.println("************************Enviando Mensaje**************");
+		messageTask.send(message);
+		return new JsonResult("success", null, "Mensaje Enviado");
+	}
+	
+	@RequestMapping(value = "/tareas", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResult listAllTask() {
+        return new JsonResult("success", tarea.listAll(), null);
+    }
 
 }

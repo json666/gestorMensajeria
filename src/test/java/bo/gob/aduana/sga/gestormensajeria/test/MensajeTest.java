@@ -20,8 +20,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
+import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.service.MensajeService;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageSender;
+import bo.gob.aduana.sga.gestormensajeria.service.MessageTask;
+import bo.gob.aduana.sga.gestormensajeria.service.TareaService;
 import bo.gob.aduana.sga.gestormensajeria.test.utils.SpringMongoConfig;
 
 /**
@@ -47,6 +50,12 @@ public class MensajeTest {
 
 	@Autowired
 	MensajeService msl;
+	
+	@Autowired
+	MessageTask<String> task;
+	
+	@Autowired
+	TareaService tsl;
 
 	@Test
 	public void sendMensaje() {
@@ -72,5 +81,39 @@ public class MensajeTest {
 				+ mensajeList.size());
 
 	}
+	
+	/*
+	 * tarea = new Tarea(json.get("tipo").toString(), 
+								json.get("remitente").toString(),
+								null,
+								currentDate, 
+								json.get("cuerpo").toString(), 
+								null, 
+								json.get("destinatario").toString(), 
+								json.get("url").toString(), 
+								json.get("evento").toString(), 
+								json.get("proceso").toString(), 
+								json.get("tipoTramite").toString(), 
+								json.get("nroTramite").toString(), 
+								json.get("estado").toString());
+	 */
+	@Test
+	public void enviarMensajeTarea(){
+		String mg = "{\"tipo\" : \"Actualizacipon de datos\",\"remitente\" : \"jheyson sanchez\",\"tiempo\" : null,\"fecha\" : \"\",\"cuerpo\":\"queue-topic\",\"destinatario\" : \"Tecnofarma S.A.\",\"url\" : \"www.google.com\",\"evento\" : \"procesar\",\"proceso\" : \"Padron de Operadores\",\"tipoTramite\" : \"Actualizacion de Operadores\",\"nroTramite\" : \"2014-231-0026\",\"estado\" : \"Observado\"}";
+		//String mg = "{\"remitente\" : \"Marco Test\",\"cuerpo\" : \"Esto es una prueba\",\"time\" : null,\"estado\" : \"ok\",\"fecha\" : \"2014-01-23 17:19:57\",\"tipo\" : \"email\",\"destinatario\" : \"Proyecto\",\"ntramite\":\"2014/201/C-1011\"}";
+		task.send(mg);
+	}
+	
+	@Test
+	public void testListTarea() throws ClassNotFoundException, SQLException {
+
+		// Listar Tarea
+		List<Tarea> mensajeListTarea = tsl.listAll();
+		System.out.println("LISTA DE TAREAS debe contener elementos: "
+				+ mensajeListTarea.size());
+
+	}
+	
+	
 
 }
