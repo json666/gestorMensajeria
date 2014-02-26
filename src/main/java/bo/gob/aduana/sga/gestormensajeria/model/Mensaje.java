@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 /*
  * autor: jsanchez
  * fecha:	21/02/2014
- * descripcion:adicionando atributos "Nº tramite, tambien se modifico el atributo fecha de tipo Date por String." 	
+ * descripcion:adicionando atributos Nro. tramite, tambien se modifico el atributo fecha de tipo Date por String. 	
  */
 @Document(collection = "mensajes")
 public class Mensaje extends BaseEntity {

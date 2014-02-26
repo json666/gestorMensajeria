@@ -53,13 +53,26 @@ public class TaskReceiver implements MessageListener {
 				
 				String eventStr=json.get("evento").toString();
 				StringTokenizer eventoTkn=new StringTokenizer(eventStr,",");
-				String componenteButtonInit="<button class='btn btn-mini' id='btn_detalle'>";
-				String componenteButtonEnd="</button>";
+				/*String componenteButtonInit="<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>";
+				String componenteButtonEnd="</button>";*/
+				//String componenteButtonInit="<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>";
+				
+				//String componenteButtonInit="<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>Accion <span class='caret'></span></button><ul class='dropdown-menu' role='menu'><li><a href='#'>";
+				//String componenteButtonEnd="</a></li></ul>";
+				
+				String componenteButtonInit="<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>Accion<span class='caret'></span></button><ul class='dropdown-menu' role='menu'>";
+				String componenteButtonEnd="</ul>";
+				String componenteURLInit="<li><a href='#'>";
+				String componenteURLEnd="</a></li>";
+				
 				String object = "";
 				while (eventoTkn.hasMoreElements()) {
-					object+= componenteButtonInit+(String)eventoTkn.nextElement()+componenteButtonEnd;
+					object=object.concat(componenteURLInit+(String)eventoTkn.nextElement());
+					object=object.concat(componenteURLEnd);
 					
 				}
+				String botonStr=object.concat(componenteButtonEnd);
+				String accionStr=componenteButtonInit.concat(botonStr);
 
 				tarea = new Tarea(json.get("tipo").toString().toUpperCase(), 
 						json.get("remitente").toString(), 
@@ -69,11 +82,13 @@ public class TaskReceiver implements MessageListener {
 						null, 
 						json.get("destinatario").toString(), 
 						json.get("url").toString(), 
-						object, 
+						accionStr, 
 						json.get("proceso").toString(),
 						json.get("tipoTramite").toString(), 
 						json.get("nroTramite").toString(), 
-						json.get("estado").toString());
+						json.get("estado").toString(),
+						null,
+						null);
 				try {
 					taskimpl.crear(tarea);
 				} catch (Exception e) {

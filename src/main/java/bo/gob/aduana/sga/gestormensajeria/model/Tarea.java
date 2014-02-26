@@ -21,40 +21,39 @@ public class Tarea extends BaseEntity {
 	private String nroTramite;
 	private String estado;
 	
+	private String rol;
+	private String sucursal;
 	
-	
-	public Tarea(String tipo, 
-				String remitente, 
-				Long tiempo, 
-				String fecha,
-				String cuerpo, 
-				HashMap<String, Object> objetoProcesado,
-				String destinatario, 
-				String url, 
-				String evento, 
-				String proceso,
-				String tipoTramite, 
-				String nroTramite, 
-				String estado) {
+	public Tarea(String tipo, String remitente, Long tiempo, String fecha,
+			String cuerpo, HashMap<String, Object> objetoProcesado,
+			String destinatario, String url, String evento, String proceso,
+			String tipoTramite, String nroTramite, String estado, String rol,
+			String sucursal) {
 		this.tipo = tipo;
 		this.remitente = remitente;
 		this.tiempo = tiempo;
 		this.fecha = fecha;
-		this.setCuerpo(cuerpo);
+		this.cuerpo = cuerpo;
 		this.objetoProcesado = objetoProcesado;
 		this.destinatario = destinatario;
 		this.url = url;
-		this.setEvento(evento);
+		this.evento = evento;
 		this.proceso = proceso;
 		this.tipoTramite = tipoTramite;
 		this.nroTramite = nroTramite;
 		this.estado = estado;
+		this.rol = rol;
+		this.sucursal = sucursal;
 	}
+	
+	
 
 	public String getEstado() {
 		return estado;
 	}
 	
+	
+
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
@@ -145,6 +144,22 @@ public class Tarea extends BaseEntity {
 
 	public void setEvento(String evento) {
 		this.evento = evento;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
+	public String getSucursal() {
+		return sucursal;
+	}
+
+	public void setSucursal(String sucursal) {
+		this.sucursal = sucursal;
 	}
 
 }

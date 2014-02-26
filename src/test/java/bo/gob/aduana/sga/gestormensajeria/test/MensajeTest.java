@@ -119,16 +119,25 @@ public class MensajeTest {
 			System.out.println("-------------------o----------------------");
 			System.out.println("value 1:"+tarea.getRemitente());
 			System.out.println("value 2:"+tarea.getEvento());
-			String tareaStr=tarea.getEvento();
+			/*String tareaStr=tarea.getEvento();
 			StringTokenizer stoken=new StringTokenizer(tareaStr,",");
+			String componenteButtonInit="<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>Accion <span class='caret'></span></button><ul class='dropdown-menu' role='menu'><li><a href='#'>";
+			String componenteButtonEnd="</ul>";
+			String componenteURLInit="<li><a href='#'>";
+			String componenteURLEnd="</a></li>";
+			String componente="";
 			while (stoken.hasMoreElements()) {
-				String componentButtomInit="<button class='btn btn-mini' id='btn_detalle'>";
-				String componentButtomEnd="</button>";
-				System.out.print(componentButtomInit+stoken.nextElement().toString().replace(" ", "_")+componentButtomEnd);
+			
+				//String componentButtomInit="<button class='btn btn-mini' id='btn_detalle'>";
+				//String componentButtomEnd="</button>";
+				componente+=componenteURLInit+stoken.nextElement().toString()+componenteURLEnd;
+				
+				//System.out.print(componenteURLInit+stoken.nextElement().toString()+componenteURLEnd);
 				//String tkn=stoken.nextElement().toString();
 				//System.out.print(tkn.replace(" ","_").toLowerCase());
 			}
-			System.out.println();
+			
+			System.out.println(componente);*/
 			System.out.println("value 3:"+tarea.getProceso());
 		}
 
