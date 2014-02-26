@@ -224,6 +224,13 @@
 				<mongo.dbname>msg</mongo.dbname>
 				<mongo.username />
 				<mongo.password />
+				<activemq.port>tcp://</activemq.port>
+				<activemq.number_port>61616</activemq.number_port>
+				<activemq.host>localhost</activemq.host>
+				<activemq.user>ActiveMQConnection.DEFAULT_USER</activemq.user>
+				<activemq.password>ActiveMQConnection.DEFAULT_PASSWORD</activemq.password>
+				<activemq.transacted_session>true</activemq.transacted_session>
+				<activemq.timeout>1000</activemq.timeout>
 			</properties>
 		</profile>
 		<profile>
@@ -235,6 +242,13 @@
 				<mongo.dbname>desa01m</mongo.dbname>
 				<mongo.username>desarrollo</mongo.username>
 				<mongo.password>1234</mongo.password>
+				<activemq.port>tcp://</activemq.port>
+				<activemq.number_port>61616</activemq.number_port>
+				<activemq.host>10.0.4.83</activemq.host>
+				<activemq.user>ActiveMQConnection.DEFAULT_USER</activemq.user>
+				<activemq.password>ActiveMQConnection.DEFAULT_PASSWORD</activemq.password>
+				<activemq.transacted_session>true</activemq.transacted_session>
+				<activemq.timeout>1000</activemq.timeout>
 			</properties>
 		</profile>
 		<profile>
@@ -246,38 +260,6 @@
 				<mongo.username />
 				<mongo.password />
 				<application.url_service />
-			</properties>
-		</profile>
-		<profile>
-			<id>devactivemq</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<activemq.port>tcp://</activemq.port>
-				<activemq.number_port>61616</activemq.number_port>
-				<activemq.host>localhost</activemq.host>
-				<activemq.user>ActiveMQConnection.DEFAULT_USER</activemq.user>
-				<activemq.password>ActiveMQConnection.DEFAULT_PASSWORD</activemq.password>
-				<activemq.transacted_session>true</activemq.transacted_session>
-				<activemq.timeout>1000</activemq.timeout>
-			</properties>
-		</profile>
-		<profile>
-			<id>testactivemq</id>
-			<properties>
-				<activemq.port>tcp://</activemq.port>
-				<activemq.number_port>61616</activemq.number_port>
-				<activemq.host>10.0.4.83</activemq.host>
-				<activemq.user>ActiveMQConnection.DEFAULT_USER</activemq.user>
-				<activemq.password>ActiveMQConnection.DEFAULT_PASSWORD</activemq.password>
-				<activemq.transacted_session>true</activemq.transacted_session>
-				<activemq.timeout>1000</activemq.timeout>
-			</properties>
-		</profile>
-		<profile>
-			<id>activemq</id>
-			<properties>
 				<activemq.url />
 				<activemq.port />
 				<activemq.number_port />
