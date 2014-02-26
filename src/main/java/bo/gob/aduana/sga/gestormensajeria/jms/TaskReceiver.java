@@ -51,17 +51,10 @@ public class TaskReceiver implements MessageListener {
 						"yyyy/MM/dd HH:mm:ss");
 				String currentDate = format.format(date);
 				
-				String eventStr=json.get("evento").toString();
+				String eventStr=json.get("accion").toString();
 				StringTokenizer eventoTkn=new StringTokenizer(eventStr,",");
-				/*String componenteButtonInit="<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>";
-				String componenteButtonEnd="</button>";*/
-				//String componenteButtonInit="<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>";
-				
-				//String componenteButtonInit="<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>Accion <span class='caret'></span></button><ul class='dropdown-menu' role='menu'><li><a href='#'>";
-				//String componenteButtonEnd="</a></li></ul>";
-				
-				String componenteButtonInit="<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>Accion<span class='caret'></span></button><ul class='dropdown-menu' role='menu'>";
-				String componenteButtonEnd="</ul>";
+				String componenteButtonInit="<div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>Accion<span class='caret'></span></button><ul class='dropdown-menu' role='menu'>";
+				String componenteButtonEnd="</ul></div>";
 				String componenteURLInit="<li><a href='#'>";
 				String componenteURLEnd="</a></li>";
 				

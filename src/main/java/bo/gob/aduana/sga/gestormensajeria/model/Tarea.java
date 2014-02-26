@@ -15,7 +15,7 @@ public class Tarea extends BaseEntity {
 	private HashMap<String, Object> objetoProcesado;
 	private String destinatario;
 	private String url;
-	private String evento;
+	private String accion;
 	private String proceso;
 	private String tipoTramite;
 	private String nroTramite;
@@ -26,7 +26,7 @@ public class Tarea extends BaseEntity {
 	
 	public Tarea(String tipo, String remitente, Long tiempo, String fecha,
 			String cuerpo, HashMap<String, Object> objetoProcesado,
-			String destinatario, String url, String evento, String proceso,
+			String destinatario, String url, String accion, String proceso,
 			String tipoTramite, String nroTramite, String estado, String rol,
 			String sucursal) {
 		this.tipo = tipo;
@@ -37,7 +37,7 @@ public class Tarea extends BaseEntity {
 		this.objetoProcesado = objetoProcesado;
 		this.destinatario = destinatario;
 		this.url = url;
-		this.evento = evento;
+		this.accion = accion;
 		this.proceso = proceso;
 		this.tipoTramite = tipoTramite;
 		this.nroTramite = nroTramite;
@@ -138,12 +138,12 @@ public class Tarea extends BaseEntity {
 		this.nroTramite = nroTramite;
 	}
 
-	public String getEvento() {
-		return evento;
+	public String getAccion() {
+		return accion;
 	}
 
-	public void setEvento(String evento) {
-		this.evento = evento;
+	public void setEvento(String accion) {
+		this.accion = accion;
 	}
 
 	public String getRol() {
