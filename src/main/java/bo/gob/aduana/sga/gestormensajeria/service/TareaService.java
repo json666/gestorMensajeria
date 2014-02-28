@@ -50,6 +50,13 @@ public interface TareaService {
      * @return lista de documentos
      */
     public List<Tarea> listAll();
+    
+    /**
+     * Retorna la lista de todos los documentos de la coleccion de un usuario en especifico.
+     *
+     * @return lista de documentos por usuario
+     */
+    public List<Tarea> listbyIdUser(String id);
 
     /**
      * Retorna la lista de Mensajes que tengan un estado especificado

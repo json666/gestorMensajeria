@@ -94,29 +94,43 @@ public class MensajeTest {
 	 */
 	@Test
 	public void enviarMensajeTarea() {
-		String mg = "{\"tipo\" : \"Actualizacipon de datos\",\"remitente\" : \"jheyson sanchez\",\"tiempo\" : null,\"fecha\" : \"\",\"cuerpo\":\"queue-topic\",\"destinatario\" : \"Tecnofarma S.A.\",\"url\" : \"www.google.com\",\"evento\" : \"procesar\",\"proceso\" : \"Padron de Operadores\",\"tipoTramite\" : \"Actualizacion de Operadores\",\"nroTramite\" : \"2014-231-0026\",\"estado\" : \"Observado\"}";
-		// String mg =
-		// "{\"remitente\" : \"Marco Test\",\"cuerpo\" : \"Esto es una prueba\",\"time\" : null,\"estado\" : \"ok\",\"fecha\" : \"2014-01-23 17:19:57\",\"tipo\" : \"email\",\"destinatario\" : \"Proyecto\",\"ntramite\":\"2014/201/C-1011\"}";
+		String mg = "{\"tipo\" : \"Actualizacipon de datos\",\"remitente\" : \"jheyson sanchez\",\"tiempo\" : null,\"fecha\" : \"\",\"cuerpo\":\"queue-topic\",\"destinatario\" : \"Banco ganadera S.A.\",\"url\" : \"www.altavista.com\",\"accion\" : \"procesar\",\"proceso\" : \"Padron de Operadores\",\"tipoTramite\" : \"Actualizacion de Operadores\",\"nroTramite\" : \"2014-231-0156\",\"estado\" : \"Observado\",\"rol\":\"analista\",\"sucursal\":\"la paz\",\"id_usuario\":\"A1234567\"}";
 		task.send(mg);
 	}
 
 	@Test
 	public void testListTarea() throws ClassNotFoundException, SQLException {
 
-		// Listar Tarea
-		/*List<Tarea> mensajeListTarea = tsl.listAll();
+		List<Tarea> mensajeListTarea = tsl.listAll();
 		System.out.println("LISTA DE TAREAS debe contener elementos: "
 				+ mensajeListTarea.size());
 		for (Iterator iterator = mensajeListTarea.iterator(); iterator
 				.hasNext();) {
 			Tarea tarea = (Tarea) iterator.next();
 			System.out.println("-------------------o----------------------");
-			System.out.println("value 1:" + tarea.getRemitente());
-			System.out.println("value 2:" + tarea.getAccion()());
+			System.out.println("value 1:" + tarea.getId_usuario());
+			System.out.println("value 2:" + tarea.getAccion());
+			System.out.println("value 2:" + tarea.getAccion());
 
 		}
 
-		System.out.println("value 3:" + tarea.getProceso());*/
+		
+	}
+	
+	@Test
+	public void testListarPorUsuario(){
+		List<Tarea> mensajeListTarea = tsl.listbyIdUser("");
+		System.out.println("LISTA DE TAREAS debe contener elementos: "
+				+ mensajeListTarea.size());
+		for (Iterator iterator = mensajeListTarea.iterator(); iterator
+				.hasNext();) {
+			Tarea tarea = (Tarea) iterator.next();
+			System.out.println("-------------------o----------------------");
+			System.out.println("value 1:" + tarea.getId_usuario());
+			System.out.println("value 2:" + tarea.getAccion());
+			System.out.println("value 2:" + tarea.getAccion());
+
+		}
 	}
 
 }

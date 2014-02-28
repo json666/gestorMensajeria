@@ -80,8 +80,9 @@ public class TaskReceiver implements MessageListener {
 						json.get("tipoTramite").toString(), 
 						json.get("nroTramite").toString(), 
 						json.get("estado").toString(),
-						null,
-						null);
+						json.get("rol").toString(),
+						json.get("sucursal").toString(),
+						json.get("id_usuario").toString());
 				try {
 					taskimpl.crear(tarea);
 				} catch (Exception e) {

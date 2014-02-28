@@ -60,5 +60,9 @@ public class TaskServiceImpl implements TareaService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public List<Tarea> listbyIdUser(String id_usuario){
+		return (List<Tarea>) tareaRepository.findByUsuario(id_usuario);
+	}
 
 }

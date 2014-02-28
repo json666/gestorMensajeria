@@ -15,20 +15,21 @@ public class Tarea extends BaseEntity {
 	private HashMap<String, Object> objetoProcesado;
 	private String destinatario;
 	private String url;
-	private String accion;
+	private String accion; 
 	private String proceso;
 	private String tipoTramite;
 	private String nroTramite;
 	private String estado;
-	
 	private String rol;
 	private String sucursal;
+	private String id_usuario;
 	
 	public Tarea(String tipo, String remitente, Long tiempo, String fecha,
 			String cuerpo, HashMap<String, Object> objetoProcesado,
 			String destinatario, String url, String accion, String proceso,
 			String tipoTramite, String nroTramite, String estado, String rol,
-			String sucursal) {
+			String sucursal, String id_usuario) {
+		super();
 		this.tipo = tipo;
 		this.remitente = remitente;
 		this.tiempo = tiempo;
@@ -44,9 +45,10 @@ public class Tarea extends BaseEntity {
 		this.estado = estado;
 		this.rol = rol;
 		this.sucursal = sucursal;
+		this.id_usuario = id_usuario;
 	}
-	
-	
+
+
 
 	public String getEstado() {
 		return estado;
@@ -160,6 +162,18 @@ public class Tarea extends BaseEntity {
 
 	public void setSucursal(String sucursal) {
 		this.sucursal = sucursal;
+	}
+
+
+
+	public String getId_usuario() {
+		return id_usuario;
+	}
+
+
+
+	public void setId_usuario(String id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 
 }

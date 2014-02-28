@@ -69,5 +69,11 @@ public class MensajeRESTController {
     public JsonResult listAllTask() {
         return new JsonResult("success", tarea.listAll(), null);
     }
+	
+	@RequestMapping(value="/tareas/cliente/{id_user}", method = RequestMethod.GET)
+	@ResponseBody
+	public JsonResult listByUser(@PathVariable String id_user){
+		return new JsonResult("success", tarea.listbyIdUser(id_user),"Procesado");
+	}
 
 }

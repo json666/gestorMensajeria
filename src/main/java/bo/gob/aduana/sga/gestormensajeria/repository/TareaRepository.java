@@ -13,5 +13,6 @@ public interface TareaRepository extends CrudRepository<Tarea, String>{
 	@Query("{asunto : ?0, cuerpo : ?1, pie : ?2}")
 	public 	List<Tarea> findByAsunto(String asunto, String cuerpo, String pie);
 
-
+	@Query("{id_usuario:?0}")
+	public List<Tarea> findByUsuario(String id_usuario);
 }
