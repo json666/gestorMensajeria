@@ -75,5 +75,12 @@ public class MensajeRESTController {
 	public JsonResult listByUser(@PathVariable String id_user){
 		return new JsonResult("success", tarea.listbyIdUser(id_user),"Procesado");
 	}
+	@RequestMapping(value="/tareas/cliente/{sucursal}/{rol}/{id_user}", method = RequestMethod.GET)
+	@ResponseBody
+	public JsonResult listByUser(@PathVariable String sucursal,
+								@PathVariable String rol,
+								@PathVariable String id_user){
+		return new JsonResult("success", tarea.findByUserAndRolSucursal(sucursal, rol, id_user),"Procesado");
+	}
 
 }

@@ -8,13 +8,23 @@
 		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.9.0.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 	<mvc:annotation-driven />
 
 	<context:component-scan base-package="bo.gob.aduana.sga.gestormensajeria" />
-
+	<!--  
+	<jee:jndi-lookup id="mailSession" jndi-name="java:jboss/mail/mailLogin"/>-->
+	
+	<!-- mail Session -->
+	 <!-- <bean id="mailSessionBean"
+		class="bo.gob.aduana.sga.gestormensajeria.bean.MailSessionBean">
+		<property name="mailSession">
+		<ref bean="mailSession"/>
+		</property>
+	</bean>-->
 	<mongo:auditing auditor-aware-ref="auditor" />
 	<bean id="auditor"
 		class="bo.gob.aduana.sga.gestormensajeria.service.impl.AuditorServiceImpl" />
@@ -66,7 +76,7 @@
 
 	<!-- Default Destination Topic Definition Correo -->
 	<bean id="defaultDestination" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg index="0" value="${activemq.correo}" />
+		<constructor-arg index="0" value="${activemq.correo.queue}" />
 	</bean>
 	<bean id="messageConverter"
 		class="org.springframework.jms.support.converter.SimpleMessageConverter" />
@@ -80,7 +90,7 @@
 
 	<bean id="defaultDestinationCopy" class="org.apache.activemq.command.ActiveMQTopic">
 		<constructor-arg index="0"
-			value="${activemq.correo.copia}" />
+			value="${activemq.correo.topic}" />
 	</bean>
 
 	<!-- Message Sender Correo Definition -->
@@ -96,7 +106,7 @@
 
 	<bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="destinationName" value="${activemq.correo}" />
+		<property name="destinationName" value="${activemq.correo.queue}" />
 		<property name="messageListener" ref="messageReceiver" />
 	</bean>
 	<!-- End ActiveMQ Email -->
@@ -109,7 +119,7 @@
 	</bean>
 	<!-- Default Destination Topic Definition Correo -->
 	<bean id="defaultDestinationTarea" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg index="0" value="${activemq.tarea}" />
+		<constructor-arg index="0" value="${activemq.tarea.queue}" />
 	</bean>
 	
 	<!-- ActiveMQ Task -->
@@ -121,7 +131,7 @@
 	</bean>
 	<!-- Default Destination Topic Definition Correo -->
 	<bean id="defaultDestinationTareaCopia" class="org.apache.activemq.command.ActiveMQTopic">
-		<constructor-arg index="0" value="${activemq.tarea.copia}" />
+		<constructor-arg index="0" value="${activemq.tarea.topic}" />
 	</bean>
 	
 	<!-- Message Sender Correo Definition -->
@@ -135,7 +145,7 @@
 	</bean>
 	<bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="destinationName" value="${activemq.tarea}" />
+		<property name="destinationName" value="${activemq.tarea.queue}" />
 		<property name="messageListener" ref="taskReceiver" />
 	</bean>
 	<!-- End ActiveMQ Task -->

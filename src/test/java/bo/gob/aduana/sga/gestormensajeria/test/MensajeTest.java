@@ -94,7 +94,7 @@ public class MensajeTest {
 	 */
 	@Test
 	public void enviarMensajeTarea() {
-		String mg = "{\"tipo\" : \"Actualizacipon de datos\",\"remitente\" : \"jheyson sanchez\",\"tiempo\" : null,\"fecha\" : \"\",\"cuerpo\":\"queue-topic\",\"destinatario\" : \"Banco ganadera S.A.\",\"url\" : \"www.altavista.com\",\"accion\" : \"procesar\",\"proceso\" : \"Padron de Operadores\",\"tipoTramite\" : \"Actualizacion de Operadores\",\"nroTramite\" : \"2014-231-0156\",\"estado\" : \"Observado\",\"rol\":\"analista\",\"sucursal\":\"la paz\",\"id_usuario\":\"A1234567\"}";
+		String mg = "{\"tipo\" : \"Actualizacipon de datos\",\"remitente\" : \"jheyson sanchez\",\"tiempo\" : null,\"fecha\" : \"\",\"cuerpo\":\"queue-topic\",\"destinatario\" : \"Banco ganadera S.A.\",\"url\" : \"www.altavista.com\",\"accion\" : \"procesar\",\"proceso\" : \"Padron de Operadores\",\"tipoTramite\" : \"Actualizacion de Operadores\",\"nroTramite\" : \"2014-231-0156\",\"estado\" : \"Observado\",\"rol\":\"ANALISTA\",\"sucursal\":\"SANTA CRUZ\",\"id_usuario\":\"A123456\"}";
 		task.send(mg);
 	}
 
@@ -132,5 +132,26 @@ public class MensajeTest {
 
 		}
 	}
+	
+	
+	@Test
+	public void testListarUsuarioSucursal(){
+		List<Tarea> mensajeListTarea = tsl.findByUserAndRolSucursal("SANTA CRUZ","ANALISTA","A123456");
+		System.out.println("LISTA DE TAREAS debe contener elementos: "
+				+ mensajeListTarea.size());
+		for (Iterator iterator = mensajeListTarea.iterator(); iterator
+				.hasNext();) {
+			Tarea tarea = (Tarea) iterator.next();
+			System.out.println("-------------------o----------------------");
+			System.out.println("value 1:" + tarea.getId_usuario());
+			System.out.println("value 2:" + tarea.getSucursal());
+			System.out.println("value 3:" + tarea.getRol());
+			System.out.println("value 4:" + tarea.getRemitente());
+			System.out.println("value 5:" + tarea.getTipoTramite());
+
+		}
+	}
+	
+	
 
 }

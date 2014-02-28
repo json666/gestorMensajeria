@@ -65,6 +65,14 @@ public interface TareaService {
      * @return lista de declaraciones
      */
     public List<Tarea> listByAsunto(String asunto,String cuerpo, String pie);
+    
+    /**
+     * Retorna la lista de Mensajes de un usuario, rol y sucursal en especifico
+     *
+     * @param resultado mensaje como string
+     * @return lista las tareas de un usuario, rol y sucursal
+     */
+    public List<Tarea> findByUserAndRolSucursal(String id_usuario, String rol, String suc);
 
 
 }

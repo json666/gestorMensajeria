@@ -14,32 +14,29 @@ import bo.gob.aduana.sga.gestormensajeria.repository.MensajeRepository;
 import bo.gob.aduana.sga.gestormensajeria.repository.TareaRepository;
 import bo.gob.aduana.sga.gestormensajeria.service.MensajeService;
 import bo.gob.aduana.sga.gestormensajeria.service.TareaService;
+
 @Service
 public class TaskServiceImpl implements TareaService {
 
 	@Autowired
 	TareaRepository tareaRepository;
 
-	
 	public Tarea getByAsunto(String asunto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 	public Tarea crear(Tarea tarea) throws ValidacionException {
 		tarea.setId(UUID.randomUUID().toString());
 		tareaRepository.save(tarea);
 		return tarea;
 	}
 
-
 	public Tarea modificar(Tarea tarea) throws ValidacionException,
 			NullDeclaracionException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	public void eliminar(Tarea tarea) throws NullDeclaracionException {
 		// TODO Auto-generated method stub
@@ -51,7 +48,6 @@ public class TaskServiceImpl implements TareaService {
 
 	}
 
-
 	public List<Tarea> listAll() {
 		return (List<Tarea>) tareaRepository.findAll();
 	}
@@ -60,9 +56,12 @@ public class TaskServiceImpl implements TareaService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public List<Tarea> listbyIdUser(String id_usuario){
+
+	public List<Tarea> listbyIdUser(String id_usuario) {
 		return (List<Tarea>) tareaRepository.findByUsuario(id_usuario);
 	}
 
+	public List<Tarea> findByUserAndRolSucursal(String suc, String rol, String id){
+		return (List<Tarea>) tareaRepository.findByUserAndRolSucursal(suc,rol,id);	
+	}
 }
