@@ -64,7 +64,7 @@ public class MensajeTest {
 
 		// String mg=
 		// "{\"remitente\" : \"Marco Test\",\"cuerpo\" : \"Esto es una prueba\",\"time\" : null,\"estado\" : \"ok\",\"fecha\" : \"2014-01-23 17:19:57\",\"tipo\" : \"email\",\"destinatario\" : \"Proyecto\"}";
-		String mg = "{\"remitente\" : \"Marco Test\",\"cuerpo\" : \"Esto es una prueba\",\"time\" : null,\"estado\" : \"ok\",\"fecha\" : \"2014-01-23 17:19:57\",\"tipo\" : \"email\",\"destinatario\" : \"Proyecto\",\"ntramite\":\"2014/201/C-1011\"}";
+		String mg = "{\"tipo\" : \"email\",\"remitente\" : \"Marco Test\",\"time\" : null,\"fecha\" : \"2014-01-23 17:19:57\",\"cuerpo\" : \"Esto es una prueba\",\"objetoProcesado\" : null,\"estado\" : \"ok\",\"destinatario\" : \"Proyecto\",\"id_usuario\":\"A123456\",\"ntramite\":\"2014/201/C-1011\"}";
 		msg.send(mg);
 
 		// assertNotNull(true);

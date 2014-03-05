@@ -26,23 +26,18 @@ public class Mensaje extends BaseEntity {
 	private HashMap<String, Object> objetoProcesado;
 	private String estado;
 	private String destinatario;
+	private String id_usuario;
 	//private String url;
 	
 	private String ntramite;
 	
 	
 	
-	public Mensaje(String tipo, 
-					String remitente, 
-					Long tiempo, 
-					String fecha,
-					String cuerpo, 
-					HashMap<String, Object> objetoProcesado,
-					String estado, 
-					String destinatario,
-					String ntramite
-		) 
-	{
+	
+	public Mensaje(String tipo, String remitente, Long tiempo, String fecha,
+			String cuerpo, HashMap<String, Object> objetoProcesado,
+			String estado, String destinatario, String id_usuario,
+			String ntramite) {
 		this.tipo = tipo;
 		this.remitente = remitente;
 		this.tiempo = tiempo;
@@ -51,7 +46,8 @@ public class Mensaje extends BaseEntity {
 		this.objetoProcesado = objetoProcesado;
 		this.estado = estado;
 		this.destinatario = destinatario;
-		this.ntramite=ntramite;
+		this.id_usuario = id_usuario;
+		this.ntramite = ntramite;
 	}
 	public String getTipo() {
 		return tipo;
@@ -107,6 +103,12 @@ public class Mensaje extends BaseEntity {
 	}
 	public void setNtramite(String ntramite) {
 		this.ntramite = ntramite;
+	}
+	public String getId_usuario() {
+		return id_usuario;
+	}
+	public void setId_usuario(String id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 	
 	

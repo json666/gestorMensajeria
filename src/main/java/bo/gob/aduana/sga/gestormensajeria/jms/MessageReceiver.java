@@ -65,7 +65,8 @@ public class MessageReceiver implements MessageListener {
 						json.get("cuerpo").toString(), 
 						null, 
 						json.get("estado").toString(), 
-						json.get("destinatario").toString(), 
+						json.get("destinatario").toString(),
+						json.get("id_usuario").toString(),
 						json.get("ntramite").toString());
 				try {
 					mensajeimpl.crear(messageE);

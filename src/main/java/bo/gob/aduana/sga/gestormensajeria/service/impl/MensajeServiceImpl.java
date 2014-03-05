@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.NullDeclaracionException;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.ValidacionException;
 import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
+import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.repository.MensajeRepository;
 import bo.gob.aduana.sga.gestormensajeria.service.MensajeService;
 
@@ -106,6 +107,11 @@ public class MensajeServiceImpl implements MensajeService{
         } else {
             return mensajeRepository.findByAsunto(asunto, cuerpo, pie);
         }
+	}
+
+	@Override
+	public List<Mensaje> findByUser(String id_usuario) {
+		return (List<Mensaje>) mensajeRepository.findByUser(id_usuario);
 	}
 	
 	

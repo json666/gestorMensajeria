@@ -48,6 +48,12 @@ public class MensajeRESTController {
         return new JsonResult("success", mensajes.listAll(), null);
     }
 	
+	@RequestMapping(value="/mensajes/cliente/{id_user}", method = RequestMethod.GET)
+	@ResponseBody
+	public JsonResult listEmailByUser(@PathVariable String id_user){
+		return new JsonResult("success", mensajes.findByUser(id_user),"Procesado");
+	}
+	
 	@RequestMapping(value = "/enviar", method = RequestMethod.POST)
 	public @ResponseBody
 	JsonResult create(@RequestBody String message) {
