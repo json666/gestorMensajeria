@@ -21,8 +21,10 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import bo.gob.aduana.sga.gestormensajeria.bean.MessageEmailBean;
 import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
 import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
+import bo.gob.aduana.sga.gestormensajeria.service.EmailNotificationService;
 import bo.gob.aduana.sga.gestormensajeria.service.MensajeService;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageSender;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageTask;
@@ -54,10 +56,13 @@ public class MensajeTest {
 	MensajeService msl;
 
 	@Autowired
-	MessageTask<String> task;
+	MessageTask<Tarea> task;
 
 	@Autowired
 	TareaService tsl;
+	
+	@Autowired
+	EmailNotificationService emailService;
 
 	@Test
 	public void sendMensaje() {
@@ -95,7 +100,7 @@ public class MensajeTest {
 	@Test
 	public void enviarMensajeTarea() {
 		String mg = "{\"tipo\" : \"Actualizacipon de datos\",\"remitente\" : \"jheyson sanchez\",\"tiempo\" : null,\"fecha\" : \"\",\"cuerpo\":\"queue-topic\",\"destinatario\" : \"Banco ganadera S.A.\",\"url\" : \"www.altavista.com\",\"accion\" : \"procesar\",\"proceso\" : \"Padron de Operadores\",\"tipoTramite\" : \"Actualizacion de Operadores\",\"nroTramite\" : \"2014-231-0156\",\"estado\" : \"Observado\",\"rol\":\"ANALISTA\",\"sucursal\":\"SANTA CRUZ\",\"id_usuario\":\"A123456\"}";
-		task.send(mg);
+		//task.send(mg);
 	}
 
 	@Test
@@ -150,6 +155,39 @@ public class MensajeTest {
 			System.out.println("value 5:" + tarea.getTipoTramite());
 
 		}
+	}
+	
+	@Test
+	public void testSendTarea(){
+		Tarea tarea = new Tarea(	"CORREO",
+				"jheyson sanchez", 
+				null, 
+				"20/02/2013",
+				"marco polo eres un tipo", 
+				null, 
+				"gerson veramendi", 
+				null,
+				"ver proceso, ver carpeta",
+				"cambio",
+				"PROCESAR", 
+				"15151514", 
+				"PENDIENTE", 
+				"PLATAFORMA", 
+				"SANTA CRUZ", 
+				"AAABBBBCCC");
+		System.out.println("OBJETO TAREA");
+		task.send(tarea);
+		System.out.println("Mensaje creado es: " + task);
+	}
+	
+	@Test
+	public void sendMail(){
+		MessageEmailBean beanMail;
+		beanMail= new MessageEmailBean();
+		beanMail.setTo("jheysonsanchez@gmail.com");
+		beanMail.setSubject("Esto es una prueba de correo");
+		beanMail.setContent("Contenido minimo");
+		emailService.sendEmail(beanMail);
 	}
 	
 	

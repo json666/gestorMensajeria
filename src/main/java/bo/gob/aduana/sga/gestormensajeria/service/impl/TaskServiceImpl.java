@@ -3,23 +3,31 @@ package bo.gob.aduana.sga.gestormensajeria.service.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import bo.gob.aduana.sga.core.bean.oce.JsonResult;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.NullDeclaracionException;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.ValidacionException;
-import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
 import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
-import bo.gob.aduana.sga.gestormensajeria.repository.MensajeRepository;
 import bo.gob.aduana.sga.gestormensajeria.repository.TareaRepository;
-import bo.gob.aduana.sga.gestormensajeria.service.MensajeService;
 import bo.gob.aduana.sga.gestormensajeria.service.TareaService;
+import bo.gob.aduana.sga.param.oce.util.CodigoDescripcionBean;
+
 
 @Service
 public class TaskServiceImpl implements TareaService {
-
+	private final Logger logger = LoggerFactory
+			.getLogger(TaskServiceImpl.class);
+	
+	
 	@Autowired
 	TareaRepository tareaRepository;
+
 
 	public Tarea getByAsunto(String asunto) {
 		// TODO Auto-generated method stub
@@ -51,6 +59,8 @@ public class TaskServiceImpl implements TareaService {
 	public List<Tarea> listAll() {
 		return (List<Tarea>) tareaRepository.findAll();
 	}
+	
+
 
 	public List<Tarea> listByAsunto(String asunto, String cuerpo, String pie) {
 		// TODO Auto-generated method stub
@@ -64,4 +74,35 @@ public class TaskServiceImpl implements TareaService {
 	public List<Tarea> findByUserAndRolSucursal(String suc, String rol, String id){
 		return (List<Tarea>) tareaRepository.findByUserAndRolSucursal(suc,rol,id);	
 	}
+	/*@Override
+	public bo.gob.aduana.sga.core.bean.oce.JsonResult findAll(int pagina) {
+		//logger.debug("Pagina solicitada {}", pagina);
+
+		String ordenCampo = "descripcion";
+		PageRequest page = new PageRequest(pagina, 50, Direction.ASC,
+				ordenCampo);
+		List<Tarea> lista = tareaRepository.findByDisabledFalse(page);
+		//logger.debug("Registros recuperados {}", lista.size());
+		if (lista == null || lista.size() == 0) {
+			return new JsonResult(false, "No existen registros.");
+		}
+		return new JsonResult(true, tareaRepository.findByDisabledFalse(page));
+	}*/
+
+	@Override
+	public JsonResult findAll(String id_usuario, int pagina) {
+		// TODO Auto-generated method stub
+		logger.debug("Pagina solicitada {}", pagina);
+		String ordenCampo = "id_usuario";
+		PageRequest page = new PageRequest(pagina, 10, Direction.ASC,
+				ordenCampo);
+		List<Tarea> lista = tareaRepository.findByUser(id_usuario, page);
+		logger.debug("Registros recuperados {}", lista.size());
+		if (lista == null || lista.size() == 0) {
+			return new JsonResult(false, "No existen registros.");
+		}
+		return new JsonResult(true, lista);
+	}
+	
+	
 }

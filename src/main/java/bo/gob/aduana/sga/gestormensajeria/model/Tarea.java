@@ -1,12 +1,17 @@
 package bo.gob.aduana.sga.gestormensajeria.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "tareas")
-public class Tarea extends BaseEntity {
+public class Tarea extends BaseEntity implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1383697429230517241L;
 	public String tipo;
 	private String remitente;
 	private Long tiempo;
@@ -29,7 +34,6 @@ public class Tarea extends BaseEntity {
 			String destinatario, String url, String accion, String proceso,
 			String tipoTramite, String nroTramite, String estado, String rol,
 			String sucursal, String id_usuario) {
-		super();
 		this.tipo = tipo;
 		this.remitente = remitente;
 		this.tiempo = tiempo;

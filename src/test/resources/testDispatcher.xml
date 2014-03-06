@@ -4,7 +4,7 @@
 	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jms="http://www.springframework.org/schema/jms"
 	xmlns:core="http://activemq.apache.org/schema/core"
-	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
 	xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.3.xsd
 		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
@@ -12,7 +12,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
-		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd">
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
 	<mvc:annotation-driven />
 
@@ -21,12 +22,28 @@
 	<!-- <jee:jndi-lookup id="mailSession" jndi-name="java:jboss/mail/mailLogin"/>-->
 	
 	<!-- mail Session -->
-	<!-- <bean id="mailSessionBean"
+	<bean id="mailSessionBean"
 		class="bo.gob.aduana.sga.gestormensajeria.bean.MailSessionBean">
 		<property name="mailSession">
 		<ref bean="mailSession"/>
 		</property>
-	</bean>-->
+	</bean>
+	
+	<bean id="smtpAuthenticator" class="bo.gob.aduana.sga.gestormensajeria.bean.SmtpAuthenticator">
+			<property name="username" value="jheysonsanchez@gmail.com"/>
+			<property name="password" value="vivilove852804"/>
+	</bean>
+	
+	<bean id="mailSession" class="javax.mail.Session" factory-method="getInstance">
+		<constructor-arg>
+			<props>
+  			    <prop key="mail.smtp.host">smtp.gmail.com</prop>
+				 <prop key="mail.smtp.port">587</prop>
+				<prop key="mail.smtp.auth">true</prop>			
+			</props>
+		</constructor-arg>
+		<constructor-arg ref="smtpAuthenticator" />
+	</bean>
 
 	<mongo:auditing auditor-aware-ref="auditor" />
 	<bean id="auditor"
@@ -126,16 +143,16 @@
 	</bean>
 	
 	<!-- ActiveMQ Task -->
-	<bean id="jmsTemplateTareaCopia" class="org.springframework.jms.core.JmsTemplate">
+	<!--<bean id="jmsTemplateTareaCopia" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="defaultDestination" ref="defaultDestinationTareaCopia" />
 		<property name="messageConverter" ref="messageConverter" />
 		<property name="sessionTransacted" value="true" />
-	</bean>
+	</bean>-->
 	<!-- Default Destination Topic Definition Correo -->
-	<bean id="defaultDestinationTareaCopia" class="org.apache.activemq.command.ActiveMQTopic">
+	<!-- <bean id="defaultDestinationTareaCopia" class="org.apache.activemq.command.ActiveMQTopic">
 		<constructor-arg index="0" value="${activemq.tarea.topic}" />
-	</bean>
+	</bean>-->
 	
 	<!-- Message Sender Correo Definition -->
 	<bean id="messageSenderTask"
@@ -146,11 +163,11 @@
 	<!-- Message Receiver Definition -->
 	<bean id="taskReceiver" class="bo.gob.aduana.sga.gestormensajeria.jms.TaskReceiver">
 	</bean>
-	<bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
+	<!--   <bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="destinationName" value="${activemq.tarea.queue}" />
 		<property name="messageListener" ref="taskReceiver" />
-	</bean>
+	</bean>-->
 	<!-- End ActiveMQ Task -->
 
 </beans>
