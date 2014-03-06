@@ -27,7 +27,6 @@ public class Mensaje extends BaseEntity {
 	private String estado;
 	private String destinatario;
 	private String id_usuario;
-	//private String url;
 	
 	private String ntramite;
 	

@@ -1,5 +1,8 @@
 package bo.gob.aduana.sga.gestormensajeria.controller;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+
+
+
+import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.service.MensajeService;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageSender;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageTask;
@@ -73,6 +80,13 @@ public class MensajeRESTController {
 	@RequestMapping(value = "/tareas", method = RequestMethod.GET)
     @ResponseBody
     public JsonResult listAllTask() {
+		
+		List<Tarea> list=tarea.listAll();
+		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+			Tarea tarea = (Tarea) iterator.next();
+			System.out.println("URL="+tarea.getUrl()+"++++++++++");
+		}
+		
         return new JsonResult("success", tarea.listAll(), null);
     }
 	

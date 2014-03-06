@@ -29,7 +29,6 @@ public class Tarea extends BaseEntity {
 			String destinatario, String url, String accion, String proceso,
 			String tipoTramite, String nroTramite, String estado, String rol,
 			String sucursal, String id_usuario) {
-		super();
 		this.tipo = tipo;
 		this.remitente = remitente;
 		this.tiempo = tiempo;

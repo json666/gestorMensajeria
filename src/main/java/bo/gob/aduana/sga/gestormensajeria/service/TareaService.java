@@ -2,10 +2,11 @@ package bo.gob.aduana.sga.gestormensajeria.service;
 
 import java.util.List;
 
+import bo.gob.aduana.sga.core.bean.oce.JsonResult;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.NullDeclaracionException;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.ValidacionException;
-import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
 import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
+
 
 public interface TareaService {
 	 /**
@@ -73,6 +74,13 @@ public interface TareaService {
      * @return lista las tareas de un usuario, rol y sucursal
      */
     public List<Tarea> findByUserAndRolSucursal(String id_usuario, String rol, String suc);
+    
+    /**
+     * Retorna la lista de todos los documentos de la coleccion
+     *
+     * @return lista de documentos
+     */
+    public JsonResult findAll(String id_usuario, int pagina);
 
 
 }

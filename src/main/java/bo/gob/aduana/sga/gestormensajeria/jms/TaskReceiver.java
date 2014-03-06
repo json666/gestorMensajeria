@@ -10,6 +10,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
+import org.apache.chemistry.opencmis.commons.impl.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,39 +51,61 @@ public class TaskReceiver implements MessageListener {
 				SimpleDateFormat format = new SimpleDateFormat(
 						"yyyy/MM/dd HH:mm:ss");
 				String currentDate = format.format(date);
-				
-				String eventStr=json.get("accion").toString();
-				StringTokenizer eventoTkn=new StringTokenizer(eventStr,",");
-				String componenteButtonInit="<div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>Accion<span class='caret'></span></button><ul class='dropdown-menu' role='menu'>";
-				String componenteButtonEnd="</ul></div>";
-				String componenteURLInit="<li><a href='#'>";
-				String componenteURLEnd="</a></li>";
-				
+
+				String eventStr = json.get("accion").toString();
+
+				StringTokenizer eventoTkn = new StringTokenizer(eventStr, ",");
+				String componenteButtonInit = "<div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>Accion<span class='caret'></span></button><ul class='dropdown-menu' role='menu'>";
+				String componenteButtonEnd = "</ul></div>";
+				String componenteURLInit = "<li><a href='#'>";
+				String componenteURLEnd = "</a></li>";
+
 				String object = "";
 				while (eventoTkn.hasMoreElements()) {
-					object=object.concat(componenteURLInit+(String)eventoTkn.nextElement());
-					object=object.concat(componenteURLEnd);
-					
-				}
-				String botonStr=object.concat(componenteButtonEnd);
-				String accionStr=componenteButtonInit.concat(botonStr);
+					object = object.concat(componenteURLInit
+							+ (String) eventoTkn.nextElement());
+					object = object.concat(componenteURLEnd);
 
-				tarea = new Tarea(json.get("tipo").toString().toUpperCase(), 
-						json.get("remitente").toString(), 
-						null, 
-						currentDate, 
-						json.get("cuerpo").toString(), 
-						null, 
-						json.get("destinatario").toString(), 
-						json.get("url").toString(), 
-						accionStr, 
-						json.get("proceso").toString(),
-						json.get("tipoTramite").toString(), 
-						json.get("nroTramite").toString(), 
-						json.get("estado").toString(),
-						json.get("rol").toString(),
-						json.get("sucursal").toString(),
-						json.get("id_usuario").toString());
+				}
+				String botonStr = object.concat(componenteButtonEnd);
+				String accionStr = componenteButtonInit.concat(botonStr);
+				/*
+				 * Contruyendo la URL dinamicamente Author:Jheyson Sanchez
+				 */
+
+				String appStr = "/oce/";
+				String urlStr = json.get("url").toString();
+				System.out.print("URL" + urlStr);
+				String objetoUrl = "";
+				StringTokenizer urlTkn = new StringTokenizer(urlStr, ",");
+				eventStr = json.get("accion").toString();
+				eventoTkn = new StringTokenizer(eventStr, ",");
+				String objUrl="";
+				while (eventoTkn.hasMoreElements()) {
+					while (urlTkn.hasMoreElements()) {
+						objetoUrl = (String) urlTkn.nextElement();
+						object = objetoUrl.concat(json.get("nroTramite").toString().concat("&"+(String)eventoTkn.nextElement()));
+					}
+					object=object.concat(appStr);
+					objUrl+=object;
+				}
+				System.out.println("URL======================"+objUrl);
+				tarea = new Tarea(	json.get("tipo").toString().toUpperCase(),
+									json.get("remitente").toString(), 
+									null, 
+									currentDate,
+									json.get("cuerpo").toString(), 
+									null, 
+									json.get("destinatario").toString(), 
+									objUrl.toString(), 
+									accionStr,
+									json.get("proceso").toString(),
+									json.get("tipoTramite").toString(), 
+									json.get("nroTramite").toString(), 
+									json.get("estado").toString(), 
+									json.get("rol").toString(), 
+									json.get("sucursal").toString(), 
+									json.get("id_usuario").toString());
 				try {
 					taskimpl.crear(tarea);
 				} catch (Exception e) {
