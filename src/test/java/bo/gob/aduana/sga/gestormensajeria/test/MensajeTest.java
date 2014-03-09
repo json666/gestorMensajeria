@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -21,8 +22,10 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import bo.gob.aduana.sga.gestormensajeria.model.TipoMensaje;
 import bo.gob.aduana.sga.gestormensajeria.bean.MessageEmailBean;
 import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
+import bo.gob.aduana.sga.gestormensajeria.model.Opcion;
 import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.service.EmailNotificationService;
 import bo.gob.aduana.sga.gestormensajeria.service.MensajeService;
@@ -49,7 +52,7 @@ public class MensajeTest {
 
 	// Cargar Conexion a MongoDB y Services para DECLARACION
 	@Autowired
-	MessageSender<String> msg;
+	MessageSender<Mensaje> msg;
 	// private MessageReceiver msgreciver;
 
 	@Autowired
@@ -61,8 +64,8 @@ public class MensajeTest {
 	@Autowired
 	TareaService tsl;
 	
-	@Autowired
-	EmailNotificationService emailService;
+	//@Autowired
+	//EmailNotificationService emailService;
 
 	@Test
 	public void sendMensaje() {
@@ -70,7 +73,7 @@ public class MensajeTest {
 		// String mg=
 		// "{\"remitente\" : \"Marco Test\",\"cuerpo\" : \"Esto es una prueba\",\"time\" : null,\"estado\" : \"ok\",\"fecha\" : \"2014-01-23 17:19:57\",\"tipo\" : \"email\",\"destinatario\" : \"Proyecto\"}";
 		String mg = "{\"tipo\" : \"email\",\"remitente\" : \"Marco Test\",\"time\" : null,\"fecha\" : \"2014-01-23 17:19:57\",\"cuerpo\" : \"Esto es una prueba\",\"objetoProcesado\" : null,\"estado\" : \"ok\",\"destinatario\" : \"Proyecto\",\"id_usuario\":\"A123456\",\"ntramite\":\"2014/201/C-1011\"}";
-		msg.send(mg);
+		//msg.send(mg);
 
 		// assertNotNull(true);
 		System.out.println("Mensaje creado es: " + msg);
@@ -82,10 +85,10 @@ public class MensajeTest {
 
 		// Listar los documentos
 		System.out.print("sssssssssssssssssssssssssss" + msl);
-		List<Mensaje> mensajeList = msl.listAll();
+		//List<Mensaje> mensajeList = msl.listAll();
 		// assertTrue("La lista debe estar vacia", msgli.size() == 0);
-		System.out.println("LISTA DE PRUEBAS debe contener 0 elementos: "
-				+ mensajeList.size());
+		//System.out.println("LISTA DE PRUEBAS debe contener 0 elementos: "
+		//		+ mensajeList.size());
 
 	}
 
@@ -114,8 +117,8 @@ public class MensajeTest {
 			Tarea tarea = (Tarea) iterator.next();
 			System.out.println("-------------------o----------------------");
 			System.out.println("value 1:" + tarea.getId_usuario());
-			System.out.println("value 2:" + tarea.getAccion());
-			System.out.println("value 2:" + tarea.getAccion());
+			//System.out.println("value 2:" + tarea.getAccion());
+			//System.out.println("value 2:" + tarea.getAccion());
 
 		}
 
@@ -132,8 +135,8 @@ public class MensajeTest {
 			Tarea tarea = (Tarea) iterator.next();
 			System.out.println("-------------------o----------------------");
 			System.out.println("value 1:" + tarea.getId_usuario());
-			System.out.println("value 2:" + tarea.getAccion());
-			System.out.println("value 2:" + tarea.getAccion());
+			//System.out.println("value 2:" + tarea.getAccion());
+			//System.out.println("value 2:" + tarea.getAccion());
 
 		}
 	}
@@ -159,22 +162,28 @@ public class MensajeTest {
 	
 	@Test
 	public void testSendTarea(){
-		Tarea tarea = new Tarea(	"CORREO",
+		List<Opcion> opciones= new ArrayList<Opcion>();
+		Opcion opc= new Opcion();
+		opc.setLink("http://127.0.0.1/oce/listener.html#/listener/verCarpeta&123456789/oce/");
+		opc.setTextLink("Ver Tarea");
+		opciones.add(opc);
+		Opcion opc1= new Opcion();
+		opc1.setLink("http://127.0.0.1/oce/listener.html#/listener/procesar&123766789/oce/");
+		opc1.setTextLink("Procesar");
+		opciones.add(opc1);
+		Tarea tarea = new Tarea(bo.gob.aduana.sga.gestormensajeria.model.TipoMensaje.NOTIFICACION,
 				"jheyson sanchez", 
-				null, 
 				"20/02/2013",
-				"marco polo eres un tipo", 
-				null, 
+				"marco polo eres un tipo muy gruñon......",
 				"gerson veramendi", 
-				null,
+				opciones,
 				"ver proceso, ver carpeta",
-				"cambio",
 				"PROCESAR", 
 				"15151514", 
-				"PENDIENTE", 
+				"REVISADO", 
 				"PLATAFORMA", 
 				"SANTA CRUZ", 
-				"AAABBBBCCC");
+				"FFFFFFFFFF151515");
 		System.out.println("OBJETO TAREA");
 		task.send(tarea);
 		System.out.println("Mensaje creado es: " + task);
@@ -187,7 +196,21 @@ public class MensajeTest {
 		beanMail.setTo("jheysonsanchez@gmail.com");
 		beanMail.setSubject("Esto es una prueba de correo");
 		beanMail.setContent("Contenido minimo");
-		emailService.sendEmail(beanMail);
+		//emailService.sendEmail(beanMail);
+	}
+	
+	@Test
+	public void sendEmail(){
+		Mensaje mensaje= new Mensaje(bo.gob.aduana.sga.gestormensajeria.model.TipoMensaje.NOTIFICACION, 
+				"jheyson sanchez",
+				"09/03/2014",
+				"Esto es un email de tipo notificacion",
+				"ENVIADO",
+				"Gerson Veramendi",
+				"A565645444",
+				"5885444");
+		msg.send(mensaje);
+		
 	}
 	
 	

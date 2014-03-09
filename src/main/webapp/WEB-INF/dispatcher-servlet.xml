@@ -17,13 +17,13 @@
 	<mvc:annotation-driven />
 
 	<context:component-scan base-package="bo.gob.aduana.sga.gestormensajeria" />
-	<jee:jndi-lookup id="mailSession" jndi-name="java:jboss/mail/mailGM"/>
+	<!-- <jee:jndi-lookup id="mailSession" jndi-name="java:jboss/mail/mailGM"/>-->
 	
 	<!-- mail Session -->
-	<bean id="mailSessionBean"
+	<!--<bean id="mailSessionBean"
 		class="bo.gob.aduana.sga.gestormensajeria.bean.MailSessionBean">
 		<property name="mailSession" ref="mailSession"/>
-	</bean>
+	</bean>-->
 	<mongo:auditing auditor-aware-ref="auditor" />
 	<bean id="auditor"
 		class="bo.gob.aduana.sga.gestormensajeria.service.impl.AuditorServiceImpl" />
