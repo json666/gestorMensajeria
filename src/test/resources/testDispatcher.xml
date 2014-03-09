@@ -143,16 +143,16 @@
 	</bean>
 	
 	<!-- ActiveMQ Task -->
-	<!--<bean id="jmsTemplateTareaCopia" class="org.springframework.jms.core.JmsTemplate">
+	<bean id="jmsTemplateTareaCopia" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="defaultDestination" ref="defaultDestinationTareaCopia" />
 		<property name="messageConverter" ref="messageConverter" />
 		<property name="sessionTransacted" value="true" />
-	</bean>-->
+	</bean>
 	<!-- Default Destination Topic Definition Correo -->
-	<!-- <bean id="defaultDestinationTareaCopia" class="org.apache.activemq.command.ActiveMQTopic">
+	<bean id="defaultDestinationTareaCopia" class="org.apache.activemq.command.ActiveMQTopic">
 		<constructor-arg index="0" value="${activemq.tarea.topic}" />
-	</bean>-->
+	</bean>
 	
 	<!-- Message Sender Correo Definition -->
 	<bean id="messageSenderTask"
@@ -163,11 +163,11 @@
 	<!-- Message Receiver Definition -->
 	<bean id="taskReceiver" class="bo.gob.aduana.sga.gestormensajeria.jms.TaskReceiver">
 	</bean>
-	<!--   <bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
+	<bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="destinationName" value="${activemq.tarea.queue}" />
 		<property name="messageListener" ref="taskReceiver" />
-	</bean>-->
+	</bean>
 	<!-- End ActiveMQ Task -->
 
 </beans>

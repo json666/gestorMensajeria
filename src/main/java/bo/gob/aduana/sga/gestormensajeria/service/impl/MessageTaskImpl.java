@@ -12,22 +12,21 @@ public class MessageTaskImpl implements MessageTask<Tarea> {
 	@Autowired
 	@Qualifier("jmsTemplateTarea")
 	JmsTemplate jmsTemplateTarea;
-	/*
+	
 	@Autowired
 	@Qualifier("jmsTemplateTareaCopia")
 	JmsTemplate jmsTemplateTareaCopia;
-*/
+
 	public MessageTaskImpl(JmsTemplate jmsTemplateTarea) {
 		this.jmsTemplateTarea = jmsTemplateTarea;
 	}
 
 	@Override
 	public void send(Tarea msg) {
-		System.out.println("Tarea="+msg.getNroTramite());
-		System.out.print(jmsTemplateTarea);
-		//jmsTemplateTarea.convertAndSend(msg);
-		jmsTemplateTarea.convertAndSend("sga.tarea.queue", msg);
-		//jmsTemplateTareaCopia.convertAndSend(msg);
+		System.out.print(msg.getUrls());
+		jmsTemplateTarea.convertAndSend(msg);
+		//jmsTemplateTarea.convertAndSend("sga.tarea.queue", msg);
+		jmsTemplateTareaCopia.convertAndSend(msg);
 		
 	}
 

@@ -1,9 +1,13 @@
 package bo.gob.aduana.sga.gestormensajeria.model;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import bo.gob.aduana.sga.gestormensajeria.model.Opcion;
+import bo.gob.aduana.sga.gestormensajeria.model.TipoMensaje;
 
 @Document(collection = "tareas")
 public class Tarea extends BaseEntity implements Serializable {
@@ -12,15 +16,14 @@ public class Tarea extends BaseEntity implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1383697429230517241L;
-	public String tipo;
+	
+	private TipoMensaje tipo;
+	//public String tipo;
 	private String remitente;
-	private Long tiempo;
-	private String fecha;
+	private  String fecha;
 	private String cuerpo;
-	private HashMap<String, Object> objetoProcesado;
 	private String destinatario;
-	private String url;
-	private String accion; 
+	private List<Opcion> urls;
 	private String proceso;
 	private String tipoTramite;
 	private String nroTramite;
@@ -29,20 +32,16 @@ public class Tarea extends BaseEntity implements Serializable {
 	private String sucursal;
 	private String id_usuario;
 	
-	public Tarea(String tipo, String remitente, Long tiempo, String fecha,
-			String cuerpo, HashMap<String, Object> objetoProcesado,
-			String destinatario, String url, String accion, String proceso,
+	public Tarea(TipoMensaje tipo, String remitente, String fecha, String cuerpo,
+			String destinatario, List<Opcion> urls, String proceso,
 			String tipoTramite, String nroTramite, String estado, String rol,
 			String sucursal, String id_usuario) {
 		this.tipo = tipo;
 		this.remitente = remitente;
-		this.tiempo = tiempo;
 		this.fecha = fecha;
 		this.cuerpo = cuerpo;
-		this.objetoProcesado = objetoProcesado;
 		this.destinatario = destinatario;
-		this.url = url;
-		this.accion = accion;
+		this.urls = urls;
 		this.proceso = proceso;
 		this.tipoTramite = tipoTramite;
 		this.nroTramite = nroTramite;
@@ -52,7 +51,9 @@ public class Tarea extends BaseEntity implements Serializable {
 		this.id_usuario = id_usuario;
 	}
 
-
+	public Tarea(){
+		
+	}
 
 	public String getEstado() {
 		return estado;
@@ -72,21 +73,6 @@ public class Tarea extends BaseEntity implements Serializable {
 		this.remitente = remitente;
 	}
 
-	public Long getTiempo() {
-		return tiempo;
-	}
-
-	public void setTiempo(Long tiempo) {
-		this.tiempo = tiempo;
-	}
-
-	public String getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
 
 	public String getCuerpo() {
 		return cuerpo;
@@ -96,13 +82,6 @@ public class Tarea extends BaseEntity implements Serializable {
 		this.cuerpo = cuerpo;
 	}
 
-	public HashMap<String, Object> getObjetoProcesado() {
-		return objetoProcesado;
-	}
-
-	public void setObjetoProcesado(HashMap<String, Object> objetoProcesado) {
-		this.objetoProcesado = objetoProcesado;
-	}
 
 	public String getDestinatario() {
 		return destinatario;
@@ -112,13 +91,7 @@ public class Tarea extends BaseEntity implements Serializable {
 		this.destinatario = destinatario;
 	}
 
-	public String getUrl() {
-		return url;
-	}
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
 
 	public String getProceso() {
 		return proceso;
@@ -144,13 +117,7 @@ public class Tarea extends BaseEntity implements Serializable {
 		this.nroTramite = nroTramite;
 	}
 
-	public String getAccion() {
-		return accion;
-	}
 
-	public void setEvento(String accion) {
-		this.accion = accion;
-	}
 
 	public String getRol() {
 		return rol;
@@ -169,15 +136,37 @@ public class Tarea extends BaseEntity implements Serializable {
 	}
 
 
-
 	public String getId_usuario() {
 		return id_usuario;
 	}
 
 
-
 	public void setId_usuario(String id_usuario) {
 		this.id_usuario = id_usuario;
+	}
+
+	public TipoMensaje getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoMensaje tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	public List<Opcion> getUrls() {
+		return urls;
+	}
+
+	public void setUrls(List<Opcion> urls) {
+		this.urls = urls;
 	}
 
 }
