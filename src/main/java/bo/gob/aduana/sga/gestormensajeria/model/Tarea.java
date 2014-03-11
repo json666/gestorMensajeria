@@ -17,8 +17,7 @@ public class Tarea extends BaseEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1383697429230517241L;
 	
-	private TipoMensaje tipo;
-	//public String tipo;
+	private String tipo;
 	private String remitente;
 	private  String fecha;
 	private String cuerpo;
@@ -32,7 +31,7 @@ public class Tarea extends BaseEntity implements Serializable {
 	private String sucursal;
 	private String id_usuario;
 	
-	public Tarea(TipoMensaje tipo, String remitente, String fecha, String cuerpo,
+	public Tarea(String tipo, String remitente, String fecha, String cuerpo,
 			String destinatario, List<Opcion> urls, String proceso,
 			String tipoTramite, String nroTramite, String estado, String rol,
 			String sucursal, String id_usuario) {
@@ -145,11 +144,11 @@ public class Tarea extends BaseEntity implements Serializable {
 		this.id_usuario = id_usuario;
 	}
 
-	public TipoMensaje getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoMensaje tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 

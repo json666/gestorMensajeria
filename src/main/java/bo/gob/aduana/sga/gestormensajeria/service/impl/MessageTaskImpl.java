@@ -25,7 +25,6 @@ public class MessageTaskImpl implements MessageTask<Tarea> {
 	public void send(Tarea msg) {
 		System.out.print(msg.getUrls());
 		jmsTemplateTarea.convertAndSend(msg);
-		//jmsTemplateTarea.convertAndSend("sga.tarea.queue", msg);
 		jmsTemplateTareaCopia.convertAndSend(msg);
 		
 	}

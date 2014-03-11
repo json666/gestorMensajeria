@@ -23,23 +23,20 @@ public class Mensaje extends BaseEntity implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private TipoMensaje tipo;
+	//private TipoMensaje tipo;
+	private String tipo;
 	private String remitente;
 	private String fecha;
 	private String cuerpo;
 	private String estado;
 	private String destinatario;
 	private String id_usuario;
-<<<<<<< HEAD
-=======
-	
->>>>>>> branch 'master' of https://github.com/json666/gestorMensajeria.git
 	private String ntramite;
 	
 	
 	
 	
-	public Mensaje(TipoMensaje tipo, String remitente,String fecha,
+	public Mensaje(String tipo, String remitente,String fecha,
 			String cuerpo,
 			String estado, String destinatario, String id_usuario,
 			String ntramite) {
@@ -56,10 +53,10 @@ public class Mensaje extends BaseEntity implements Serializable {
 	public Mensaje(){
 		
 	}
-	public TipoMensaje getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
-	public void setTipo(TipoMensaje tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 	public String getRemitente() {

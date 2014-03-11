@@ -48,12 +48,9 @@ public class MensajeTest {
 			SpringMongoConfig.class);
 	private final MongoOperations mongoOperations = (MongoOperations) context
 			.getBean("mongoTemplate");
-	// private final PruebaDao pruebaDao = new PruebaDao(mongoOperations);
 
-	// Cargar Conexion a MongoDB y Services para DECLARACION
 	@Autowired
 	MessageSender<Mensaje> msg;
-	// private MessageReceiver msgreciver;
 
 	@Autowired
 	MensajeService msl;
@@ -64,46 +61,22 @@ public class MensajeTest {
 	@Autowired
 	TareaService tsl;
 	
-	//@Autowired
-	//EmailNotificationService emailService;
+	@Autowired
+	EmailNotificationService emailService;
 
 	@Test
 	public void sendMensaje() {
 
-		// String mg=
-		// "{\"remitente\" : \"Marco Test\",\"cuerpo\" : \"Esto es una prueba\",\"time\" : null,\"estado\" : \"ok\",\"fecha\" : \"2014-01-23 17:19:57\",\"tipo\" : \"email\",\"destinatario\" : \"Proyecto\"}";
+		
 		String mg = "{\"tipo\" : \"email\",\"remitente\" : \"Marco Test\",\"time\" : null,\"fecha\" : \"2014-01-23 17:19:57\",\"cuerpo\" : \"Esto es una prueba\",\"objetoProcesado\" : null,\"estado\" : \"ok\",\"destinatario\" : \"Proyecto\",\"id_usuario\":\"A123456\",\"ntramite\":\"2014/201/C-1011\"}";
-		//msg.send(mg);
-
-		// assertNotNull(true);
+		
 		System.out.println("Mensaje creado es: " + msg);
 
 	}
 
 	@Test
-	public void testList() throws ClassNotFoundException, SQLException {
-
-		// Listar los documentos
-		System.out.print("sssssssssssssssssssssssssss" + msl);
-		//List<Mensaje> mensajeList = msl.listAll();
-		// assertTrue("La lista debe estar vacia", msgli.size() == 0);
-		//System.out.println("LISTA DE PRUEBAS debe contener 0 elementos: "
-		//		+ mensajeList.size());
-
-	}
-
-	/*
-	 * tarea = new Tarea(json.get("tipo").toString(),
-	 * json.get("remitente").toString(), null, currentDate,
-	 * json.get("cuerpo").toString(), null, json.get("destinatario").toString(),
-	 * json.get("url").toString(), json.get("evento").toString(),
-	 * json.get("proceso").toString(), json.get("tipoTramite").toString(),
-	 * json.get("nroTramite").toString(), json.get("estado").toString());
-	 */
-	@Test
 	public void enviarMensajeTarea() {
 		String mg = "{\"tipo\" : \"Actualizacipon de datos\",\"remitente\" : \"jheyson sanchez\",\"tiempo\" : null,\"fecha\" : \"\",\"cuerpo\":\"queue-topic\",\"destinatario\" : \"Banco ganadera S.A.\",\"url\" : \"www.altavista.com\",\"accion\" : \"procesar\",\"proceso\" : \"Padron de Operadores\",\"tipoTramite\" : \"Actualizacion de Operadores\",\"nroTramite\" : \"2014-231-0156\",\"estado\" : \"Observado\",\"rol\":\"ANALISTA\",\"sucursal\":\"SANTA CRUZ\",\"id_usuario\":\"A123456\"}";
-		//task.send(mg);
 	}
 
 	@Test
@@ -117,8 +90,7 @@ public class MensajeTest {
 			Tarea tarea = (Tarea) iterator.next();
 			System.out.println("-------------------o----------------------");
 			System.out.println("value 1:" + tarea.getId_usuario());
-			//System.out.println("value 2:" + tarea.getAccion());
-			//System.out.println("value 2:" + tarea.getAccion());
+			System.out.println("value 2:" + tarea.getTipo().toString());
 
 		}
 
@@ -135,8 +107,7 @@ public class MensajeTest {
 			Tarea tarea = (Tarea) iterator.next();
 			System.out.println("-------------------o----------------------");
 			System.out.println("value 1:" + tarea.getId_usuario());
-			//System.out.println("value 2:" + tarea.getAccion());
-			//System.out.println("value 2:" + tarea.getAccion());
+			System.out.println("value 2:" + tarea.getTipo());
 
 		}
 	}
@@ -171,19 +142,19 @@ public class MensajeTest {
 		opc1.setLink("http://127.0.0.1/oce/listener.html#/listener/procesar&123766789/oce/");
 		opc1.setTextLink("Procesar");
 		opciones.add(opc1);
-		Tarea tarea = new Tarea(bo.gob.aduana.sga.gestormensajeria.model.TipoMensaje.NOTIFICACION,
+		Tarea tarea = new Tarea(TipoMensaje.NOTIFICACION,
 				"jheyson sanchez", 
 				"20/02/2013",
-				"marco polo eres un tipo muy gruñon......",
+				"marco polo",
 				"gerson veramendi", 
 				opciones,
 				"ver proceso, ver carpeta",
 				"PROCESAR", 
 				"15151514", 
 				"REVISADO", 
-				"PLATAFORMA", 
-				"SANTA CRUZ", 
-				"FFFFFFFFFF151515");
+				"SOLICITANTE", 
+				"LA PAZ", 
+				"GGGGGGGGG11111111");
 		System.out.println("OBJETO TAREA");
 		task.send(tarea);
 		System.out.println("Mensaje creado es: " + task);
@@ -193,23 +164,42 @@ public class MensajeTest {
 	public void sendMail(){
 		MessageEmailBean beanMail;
 		beanMail= new MessageEmailBean();
-		beanMail.setTo("jheysonsanchez@gmail.com");
-		beanMail.setSubject("Esto es una prueba de correo");
-		beanMail.setContent("Contenido minimo");
-		//emailService.sendEmail(beanMail);
+		beanMail.setTo("osanchez@aduana.gob.bo");
+		beanMail.setSubject("Esto es una prueba de correo electronico..........");
+		beanMail.setContent("Contenido basico");
+		emailService.sendEmail(beanMail);
 	}
 	
 	@Test
 	public void sendEmail(){
-		Mensaje mensaje= new Mensaje(bo.gob.aduana.sga.gestormensajeria.model.TipoMensaje.NOTIFICACION, 
+		Mensaje mensaje= new Mensaje(TipoMensaje.CORREO, 
 				"jheyson sanchez",
-				"09/03/2014",
+				"10/03/2014",
 				"Esto es un email de tipo notificacion",
 				"ENVIADO",
-				"Gerson Veramendi",
+				"Gerson Veramendi Verastegui",
 				"A565645444",
-				"5885444");
+				"588533333444");
 		msg.send(mensaje);
+		
+	}
+	
+	@Test
+	public void listarRol(){
+		List<Tarea> mensajeListTarea = (List<Tarea>) tsl.findByRol("ANALISTA");
+		System.out.println("LISTA DE TAREAS debe contener elementos: "
+				+ mensajeListTarea.size());
+		for (Iterator iterator = mensajeListTarea.iterator(); iterator
+				.hasNext();) {
+			Tarea tarea = (Tarea) iterator.next();
+			System.out.println("-------------------o----------------------");
+			System.out.println("value 1:" + tarea.getId_usuario());
+			System.out.println("value 2:" + tarea.getSucursal());
+			System.out.println("value 3:" + tarea.getRol());
+			System.out.println("value 4:" + tarea.getRemitente());
+			System.out.println("value 5:" + tarea.getTipoTramite());
+
+		}
 		
 	}
 	

@@ -1,6 +1,16 @@
 package bo.gob.aduana.sga.gestormensajeria.bean;
 
-public class MessageEmailBean {
+import java.io.Serializable;
+
+public class MessageEmailBean implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public MessageEmailBean(){
+		
+	}
 	public String subject;
 
 	public String content;

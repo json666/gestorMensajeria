@@ -12,24 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-<<<<<<< HEAD
 import bo.gob.aduana.sga.gestormensajeria.bean.MessageEmailBean;
 import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
 import bo.gob.aduana.sga.gestormensajeria.model.Opcion;
 import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.service.EmailNotificationService;
-=======
-
-
-
-
-
-
-
-
-
-import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
->>>>>>> branch 'master' of https://github.com/json666/gestorMensajeria.git
 import bo.gob.aduana.sga.gestormensajeria.service.MensajeService;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageSender;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageTask;
@@ -52,9 +39,8 @@ public class MensajeRESTController {
 	@Autowired(required = true)
 	private MessageTask<Tarea> messageTask;
 
-	/*
-	 * @Autowired EmailNotificationService emailService;
-	 */
+	@Autowired
+	EmailNotificationService emailService;
 
 	@RequestMapping(value = "/mensajes", method = RequestMethod.GET)
 	@ResponseBody
@@ -88,22 +74,6 @@ public class MensajeRESTController {
 	}
 
 	@RequestMapping(value = "/tareas", method = RequestMethod.GET)
-<<<<<<< HEAD
-=======
-    @ResponseBody
-    public JsonResult listAllTask() {
-		
-		List<Tarea> list=tarea.listAll();
-		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-			Tarea tarea = (Tarea) iterator.next();
-			System.out.println("URL="+tarea.getUrl()+"++++++++++");
-		}
-		
-        return new JsonResult("success", tarea.listAll(), null);
-    }
-	
-	@RequestMapping(value="/tareas/cliente/{id_user}", method = RequestMethod.GET)
->>>>>>> branch 'master' of https://github.com/json666/gestorMensajeria.git
 	@ResponseBody
 	public JsonResult listAllTask() {
 
@@ -131,15 +101,16 @@ public class MensajeRESTController {
 				sucursal, rol, id_user), "Procesado");
 	}
 
-	/*
-	 * @RequestMapping(value = "/enviar/email", method = RequestMethod.POST,
-	 * headers = "Content-Type=application/json")
-	 * 
-	 * @ResponseBody public JsonResult sendEMail(MessageEmailBean email) { try {
-	 * //emailService.sendEmail(email); } catch (Exception e) {
-	 * e.printStackTrace(); } return new JsonResult("success", null,
-	 * "Correo Enviado"); }
-	 */
+	@RequestMapping(value = "/enviar/email", method = RequestMethod.POST, headers = "Content-Type=application/json")
+	@ResponseBody
+	public JsonResult sendEMail(@RequestBody MessageEmailBean email) {
+		try {
+			emailService.sendEmail(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return new JsonResult("success", null, "Correo Enviado");
+	}
 
 	@RequestMapping(value = "/tarea", method = RequestMethod.POST, headers = "Content-Type=application/json")
 	@ResponseBody
@@ -161,6 +132,17 @@ public class MensajeRESTController {
 			messageTask.send(tarea);
 			return new JsonResult("success", null, "Procesado");
 		}
+	}
+	
+	/*
+	 * Descripcion:Filtrar tarea por Rol
+	 * Author:Jheyson Sanchez
+	 * Fecha:10/03/2014
+	 */
+	@RequestMapping(value = "/tareas/rol/{rol}", method = RequestMethod.GET)
+	@ResponseBody
+	public JsonResult listByRol(@PathVariable String rol) {
+		return new JsonResult("success", tarea.findByRol(rol), "Procesado");
 	}
 
 }

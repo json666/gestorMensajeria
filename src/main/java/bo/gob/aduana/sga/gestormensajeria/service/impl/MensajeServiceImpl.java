@@ -28,34 +28,6 @@ public class MensajeServiceImpl implements MensajeService{
 	}
 
 	public Mensaje crear(Mensaje mensaje){
-//		//Validamos la declaracion
-//        ValidaSchemaImp valida = new ValidaSchemaImp();
-//        try {
-//
-//            //Validar datos crear json schema para mensajes
-//            JsonResult json = valida.datosExportacion(mensaje.toString());
-//            System.out.println(json.getStatus());
-//            System.out.println(json.getMessage());
-//
-//            //Si valido correctamente
-//            if (json.getStatus().equals("Success")) {
-//
-//                //Crear la nuevo mensaje
-//                mensaje.setId(UUID.randomUUID().toString());
-//
-//                mensajeRepository.save(mensaje);
-//                return mensaje;
-//            } else {
-//                throw new ValidacionException("Error de Validacion: Los datos enviados son incorrectos. " + json.getMessage());
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            throw new ValidacionException("Error de Validacion: No se encuentra el archivo json.schema");
-//        } catch (ProcessingException e) {
-//            e.printStackTrace();
-//            throw new ValidacionException("Error de Validacion: Excepcion desconocida de json.schema");
-//        }
-      //Crear el nuevo mensaje
       mensaje.setId(UUID.randomUUID().toString());
 
       mensajeRepository.save(mensaje);

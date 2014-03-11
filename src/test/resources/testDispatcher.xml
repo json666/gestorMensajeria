@@ -30,15 +30,15 @@
 	</bean>
 	
 	<bean id="smtpAuthenticator" class="bo.gob.aduana.sga.gestormensajeria.bean.SmtpAuthenticator">
-			<property name="username" value="jheysonsanchez@gmail.com"/>
-			<property name="password" value="vivilove852804"/>
+			<property name="username" value="osanchez@aduana.gob.bo"/>
+			<property name="password" value="j@son123"/>
 	</bean>
 	
 	<bean id="mailSession" class="javax.mail.Session" factory-method="getInstance">
 		<constructor-arg>
 			<props>
-  			    <prop key="mail.smtp.host">smtp.gmail.com</prop>
-				 <prop key="mail.smtp.port">587</prop>
+  			    <prop key="mail.smtp.host">anbdm4.aduana.gob.bo</prop>
+				 <prop key="mail.smtp.port">25</prop>
 				<prop key="mail.smtp.auth">true</prop>			
 			</props>
 		</constructor-arg>

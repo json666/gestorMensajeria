@@ -24,11 +24,10 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 	public void sendEmail(MessageEmailBean messageEmailBean) {
 		try {
 			MimeMessage m = new MimeMessage(mailSession.getMailSession());
-			Address from = new InternetAddress("jheysonsanchez@gmail.com");
-
+			Address from = new InternetAddress("aduana@aduana.gob.bo");
 			m.setFrom(from);
-			m.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse(messageEmailBean.getTo()));
+			m.setRecipients(Message.RecipientType.TO,InternetAddress.parse(messageEmailBean.getTo()));
+			System.out.println("Message To:"+messageEmailBean.getTo());
 			m.setSubject(messageEmailBean.getSubject());
 			m.setSentDate(new java.util.Date());
 			m.setContent(messageEmailBean.getContent(), "text/html");

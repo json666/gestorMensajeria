@@ -15,6 +15,5 @@ public interface EmailNotificationService {
 	 * Metodo que envia un correo electronico  
 	 * @param emailNotification Clase abstracta donde se personaliza los detalles para enviar el correo electronico
 	 */
-	//public void sendEmail(EmailNotification emailNotification);
 
 }

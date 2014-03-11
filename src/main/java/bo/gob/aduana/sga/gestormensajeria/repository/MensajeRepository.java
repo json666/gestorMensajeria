@@ -10,7 +10,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
-import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
 
 @Repository
 public interface MensajeRepository extends CrudRepository<Mensaje, String>{
