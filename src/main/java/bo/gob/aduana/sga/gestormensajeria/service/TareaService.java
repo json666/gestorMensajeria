@@ -81,6 +81,14 @@ public interface TareaService {
      * @return lista de documentos
      */
     public JsonResult findAll(String id_usuario, int pagina);
+    /**
+     * Retorna la lista de todos los documentos de la coleccion con el tipo rol
+     *
+     * @return lista de documentos del filtro rol
+     */
+    public List<Tarea> findByRol(String rol);
 
+    
+    public  Tarea findById(String id);
 
 }

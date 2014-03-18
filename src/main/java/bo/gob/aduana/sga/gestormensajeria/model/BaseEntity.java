@@ -2,6 +2,7 @@ package bo.gob.aduana.sga.gestormensajeria.model;
 
 import org.springframework.data.annotation.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,9 +11,13 @@ import java.util.Date;
  * Time: 11:03 AM
  */
 
-public abstract class BaseEntity {
+public abstract class BaseEntity implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
     private String id;
 
     /*@CreatedBy

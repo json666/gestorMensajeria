@@ -6,10 +6,11 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageSender;
 								
 
-public class MessageSenderEmailImpl implements MessageSender<String> {
+public class MessageSenderEmailImpl implements MessageSender<Mensaje> {
 	
 	@Autowired
 	@Qualifier("jmsTemplate")
@@ -26,10 +27,11 @@ public class MessageSenderEmailImpl implements MessageSender<String> {
 	}
 	
 
-	public void send(String msg) {
+	public void send(Mensaje msg) {
 		System.out.print("Enviando mensaje=="+msg+"TEM="+jmsTemplate);
-		jmsTemplateCopy.convertAndSend(msg);
 		jmsTemplate.convertAndSend(msg);
+		jmsTemplateCopy.convertAndSend(msg);
+		
 		
 	}
 

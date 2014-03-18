@@ -1,5 +1,6 @@
 package bo.gob.aduana.sga.gestormensajeria.service.impl;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,18 +17,14 @@ import bo.gob.aduana.sga.gestormensajeria.excepciones.ValidacionException;
 import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.repository.TareaRepository;
 import bo.gob.aduana.sga.gestormensajeria.service.TareaService;
-import bo.gob.aduana.sga.param.oce.util.CodigoDescripcionBean;
-
 
 @Service
 public class TaskServiceImpl implements TareaService {
 	private final Logger logger = LoggerFactory
 			.getLogger(TaskServiceImpl.class);
-	
-	
+
 	@Autowired
 	TareaRepository tareaRepository;
-
 
 	public Tarea getByAsunto(String asunto) {
 		// TODO Auto-generated method stub
@@ -35,15 +32,31 @@ public class TaskServiceImpl implements TareaService {
 	}
 
 	public Tarea crear(Tarea tarea) throws ValidacionException {
-		tarea.setId(UUID.randomUUID().toString());
-		tareaRepository.save(tarea);
+
+		try {
+
+			System.out.println("Creando Objeto");
+			tarea.setId(UUID.randomUUID().toString());
+			tareaRepository.save(tarea);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
 		return tarea;
 	}
 
-	public Tarea modificar(Tarea tarea) throws ValidacionException,
-			NullDeclaracionException {
-		// TODO Auto-generated method stub
-		return null;
+	public Tarea modificar(Tarea tarea) throws ValidacionException {
+
+		try {
+
+			System.out.println("Modificando Objecto");
+			tareaRepository.save(tarea);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return tarea;
 	}
 
 	public void eliminar(Tarea tarea) throws NullDeclaracionException {
@@ -59,8 +72,6 @@ public class TaskServiceImpl implements TareaService {
 	public List<Tarea> listAll() {
 		return (List<Tarea>) tareaRepository.findAll();
 	}
-	
-
 
 	public List<Tarea> listByAsunto(String asunto, String cuerpo, String pie) {
 		// TODO Auto-generated method stub
@@ -71,23 +82,26 @@ public class TaskServiceImpl implements TareaService {
 		return (List<Tarea>) tareaRepository.findByUsuario(id_usuario);
 	}
 
-	public List<Tarea> findByUserAndRolSucursal(String suc, String rol, String id){
-		return (List<Tarea>) tareaRepository.findByUserAndRolSucursal(suc,rol,id);	
+	public List<Tarea> findByUserAndRolSucursal(String suc, String rol,
+			String id) {
+		return (List<Tarea>) tareaRepository.findByUserAndRolSucursal(suc, rol,
+				id);
 	}
-	/*@Override
-	public bo.gob.aduana.sga.core.bean.oce.JsonResult findAll(int pagina) {
-		//logger.debug("Pagina solicitada {}", pagina);
 
-		String ordenCampo = "descripcion";
-		PageRequest page = new PageRequest(pagina, 50, Direction.ASC,
-				ordenCampo);
-		List<Tarea> lista = tareaRepository.findByDisabledFalse(page);
-		//logger.debug("Registros recuperados {}", lista.size());
-		if (lista == null || lista.size() == 0) {
-			return new JsonResult(false, "No existen registros.");
-		}
-		return new JsonResult(true, tareaRepository.findByDisabledFalse(page));
-	}*/
+	// @Override
+	// public JsonResult findAll(int pagina) {
+	// // logger.debug("Pagina solicitada {}", pagina);
+	//
+	// String ordenCampo = "descripcion";
+	// PageRequest page = new PageRequest(pagina, 50, Direction.ASC,
+	// ordenCampo);
+	// List<Tarea> lista = tareaRepository.findByDisabledFalse(page);
+	// // logger.debug("Registros recuperados {}", lista.size());
+	// if (lista == null || lista.size() == 0) {
+	// return new JsonResult(false, "No existen registros.");
+	// }
+	// return new JsonResult(true, tareaRepository.findByUser(rol, pageable));
+	// }
 
 	@Override
 	public JsonResult findAll(String id_usuario, int pagina) {
@@ -103,6 +117,22 @@ public class TaskServiceImpl implements TareaService {
 		}
 		return new JsonResult(true, lista);
 	}
-	
-	
+
+	@Override
+	public List<Tarea> findByRol(String rol) {
+		return (List<Tarea>) tareaRepository.findByRolIgnoreCase(rol
+				.toUpperCase());
+	}
+
+
+	@Override
+	public Tarea findById(String id) {
+		Tarea tarea=null;
+		tarea=tareaRepository.findOne(id);
+		return tarea;
+	}
+
+
+
+
 }

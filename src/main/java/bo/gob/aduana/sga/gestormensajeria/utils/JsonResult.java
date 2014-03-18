@@ -9,52 +9,33 @@ package bo.gob.aduana.sga.gestormensajeria.utils;
  */
 public class JsonResult {
 
-    private String status;
+    private Boolean success;
+    private Object result;
 
-    private Object data;
-
-    private String message;
-
-    /**
-     * Proxy
-     */
-    public JsonResult() {
+    public JsonResult(Boolean success, Object result) {
+        this.success = success;
+        this.result = result;
     }
 
-    /**
-     * constructor
-     *
-     * @param status  Estado de la respuesta del servicio consumido
-     * @param data    Datos devueltos por el servicio consumido
-     * @param message Mensaje devuelto por el servicio consumido
-     */
-    public JsonResult(String status, Object data, String message) {
-        this.status = status;
-        this.data = data;
-        this.message = message;
+    public Boolean getSuccess() {
+        return success;
     }
 
-    public String getStatus() {
-        return status;
+    public void setSuccess(Boolean success) {
+        this.success = success;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public Object getResult() {
+        return result;
     }
 
-    public Object getData() {
-        return data;
+    public void setResult(Object result) {
+        this.result = result;
+    }
+    
+    public JsonResult(){
+    	
     }
 
-    public void setData(Object data) {
-        this.data = data;
-    }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

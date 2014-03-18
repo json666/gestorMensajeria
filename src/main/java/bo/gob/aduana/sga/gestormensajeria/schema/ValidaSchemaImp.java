@@ -33,10 +33,10 @@ public class ValidaSchemaImp implements ValidaSchema {
         jsonResult = new JsonResult();
 
         if (report.isSuccess()) {
-            jsonResult.setStatus("Success");
+             //jsonsetStatus("Success");
         } else {
-            jsonResult.setStatus("Fail");
-            jsonResult.setMessage(report.toString());
+//            jsonResult.setStatus("Fail");
+//            jsonResult.setMessage(report.toString());
         }
 
         return jsonResult;
@@ -56,10 +56,10 @@ public class ValidaSchemaImp implements ValidaSchema {
         jsonResult = new JsonResult();
 
         if (report.isSuccess()) {
-            jsonResult.setStatus("Success");
+//            jsonResult.setStatus("Success");
         } else {
-            jsonResult.setStatus("Fail");
-            jsonResult.setMessage(report.toString());
+//            jsonResult.setStatus("Fail");
+//            jsonResult.setMessage(report.toString());
         }
 
         return jsonResult;
@@ -79,10 +79,10 @@ public class ValidaSchemaImp implements ValidaSchema {
         jsonResult = new JsonResult();
 
         if (report.isSuccess()) {
-            jsonResult.setStatus("Success");
+//            jsonResult.setStatus("Success");
         } else {
-            jsonResult.setStatus("Fail");
-            jsonResult.setMessage(report.toString());
+//            jsonResult.setStatus("Fail");
+//            jsonResult.setMessage(report.toString());
         }
 
         return jsonResult;
@@ -102,10 +102,10 @@ public class ValidaSchemaImp implements ValidaSchema {
         jsonResult = new JsonResult();
 
         if (report.isSuccess()) {
-            jsonResult.setStatus("Success");
+            //jsonResult.setStatus("Success");
         } else {
-            jsonResult.setStatus("Fail");
-            jsonResult.setMessage(report.toString());
+//            jsonResult.setStatus("Fail");
+//            jsonResult.setMessage(report.toString());
         }
 
         return jsonResult;
