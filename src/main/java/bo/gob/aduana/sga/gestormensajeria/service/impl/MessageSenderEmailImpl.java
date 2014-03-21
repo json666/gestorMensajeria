@@ -19,13 +19,13 @@ public class MessageSenderEmailImpl implements MessageSender<Mensaje> {
 	@Autowired
 	@Qualifier("jmsTemplateCopy")
 	JmsTemplate jmsTemplateCopy;
+
 	
 		
 	public MessageSenderEmailImpl(final JmsTemplate jmsTemplate) {
 		this.jmsTemplate = jmsTemplate;
 
 	}
-	
 
 	public void send(Mensaje msg) {
 		System.out.print("Enviando mensaje=="+msg+"TEM="+jmsTemplate);

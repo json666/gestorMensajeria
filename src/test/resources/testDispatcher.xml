@@ -1,53 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" 
-	xmlns:jms="http://www.springframework.org/schema/jms"
-	xmlns:core="http://activemq.apache.org/schema/core" 
-	xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:lang="http://www.springframework.org/schema/lang"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:core="http://activemq.apache.org/schema/core" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.3.xsd
 		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.9.0.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
-		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
-		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<mvc:annotation-driven />
 
 	<context:component-scan base-package="bo.gob.aduana.sga.gestormensajeria" />
 
-
-	<!-- mail Session -->
-	<!-- <bean id="mailSessionBean" -->
-	<!-- class="bo.gob.aduana.sga.gestormensajeria.bean.MailSessionBean"> -->
-	<!-- <property name="mailSession"> -->
-	<!-- <ref bean="mailSession"/> -->
-	<!-- </property> -->
-	<!-- </bean> -->
-
-	<!-- <bean id="smtpAuthenticator" class="bo.gob.aduana.sga.gestormensajeria.bean.SmtpAuthenticator"> -->
-	<!-- <property name="username" value="osanchez@aduana.gob.bo"/> -->
-	<!-- <property name="password" value="j@son123"/> -->
-	<!-- </bean> -->
-
-	<!-- <bean id="mailSession" class="javax.mail.Session" factory-method="getInstance"> -->
-	<!-- <constructor-arg> -->
-	<!-- <props> -->
-	<!-- <prop key="mail.smtp.host">anbdm4.aduana.gob.bo</prop> -->
-	<!-- <prop key="mail.smtp.port">25</prop> -->
-	<!-- <prop key="mail.smtp.auth">true</prop> -->
-	<!-- </props> -->
-	<!-- </constructor-arg> -->
-	<!-- <constructor-arg ref="smtpAuthenticator" /> -->
-	<!-- </bean> -->
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="ANBME1.aduana.gob.bo" />
@@ -76,7 +47,6 @@
 			</value>
 		</property>
 	</bean>
-
 
 	<mongo:auditing auditor-aware-ref="auditor" />
 	<bean id="auditor"
@@ -113,6 +83,7 @@
 		<property name="brokerURL" value="${activemq.test.url}" />
 		<property name="userName" value="${activemq.test.user}" />
 		<property name="password" value="${activemq.test.password}" />
+<!-- 		<property name="watchTopicAdvisories" value="false" /> -->
 	</bean>
 
 	<!-- ConnectionFactory Definition -->

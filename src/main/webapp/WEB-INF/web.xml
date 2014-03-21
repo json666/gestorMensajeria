@@ -41,7 +41,12 @@
         <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
     </context-param>
 
+<!--     <listener> -->
+<!--         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> -->
+<!--     </listener> -->
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+    <listener-class>
+        bo.gob.aduana.sga.gestormensajeria.utils.ContextLoaderListener
+    </listener-class>
+</listener>
 </web-app>

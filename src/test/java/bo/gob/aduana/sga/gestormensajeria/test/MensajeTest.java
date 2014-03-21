@@ -64,7 +64,7 @@ public class MensajeTest {
 	@Autowired
 	EmailNotificationService emailService;
 
-	@Test
+	//@Test
 	public void sendMensaje() {
 
 		
@@ -74,12 +74,12 @@ public class MensajeTest {
 
 	}
 
-	@Test	
+	//@Test	
 	public void enviarMensajeTarea() {
 		String mg = "{\"tipo\" : \"Actualizacipon de datos\",\"remitente\" : \"jheyson sanchez\",\"tiempo\" : null,\"fecha\" : \"\",\"cuerpo\":\"queue-topic\",\"destinatario\" : \"Banco ganadera S.A.\",\"url\" : \"www.altavista.com\",\"accion\" : \"procesar\",\"proceso\" : \"Padron de Operadores\",\"tipoTramite\" : \"Actualizacion de Operadores\",\"nroTramite\" : \"2014-231-0156\",\"estado\" : \"Observado\",\"rol\":\"ANALISTA\",\"sucursal\":\"SANTA CRUZ\",\"id_usuario\":\"A123456\"}";
 	}
 
-	@Test
+	//@Test
 	public void testListTarea() throws ClassNotFoundException, SQLException {
 
 		List<Tarea> mensajeListTarea = tsl.listAll();
@@ -97,7 +97,7 @@ public class MensajeTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testListarPorUsuario(){
 		List<Tarea> mensajeListTarea = tsl.listbyIdUser("");
 		System.out.println("LISTA DE TAREAS debe contener elementos: "
@@ -113,7 +113,7 @@ public class MensajeTest {
 	}
 	
 	
-	@Test
+	//@Test
 	public void testListarUsuarioSucursal(){
 		List<Tarea> mensajeListTarea = tsl.findByUserAndRolSucursal("SANTA CRUZ","ANALISTA","A123456");
 		System.out.println("LISTA DE TAREAS debe contener elementos: "
@@ -170,7 +170,7 @@ public class MensajeTest {
 //		emailService.sendEmail(beanMail);
 //	}
 	
-	@Test
+	//@Test
 	public void sendEmail(){
 		Mensaje mensaje= new Mensaje(TipoMensaje.CORREO, 
 				"jheyson sanchez",
@@ -184,7 +184,7 @@ public class MensajeTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void listarRol(){
 		List<Tarea> mensajeListTarea = (List<Tarea>) tsl.findByRol("ANALISTA");
 		System.out.println("LISTA DE TAREAS debe contener elementos: "
@@ -203,7 +203,7 @@ public class MensajeTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testModificarTarea(){
 		List<Opcion> opciones= new ArrayList<Opcion>();
 		Opcion opc= new Opcion();
@@ -228,7 +228,7 @@ public class MensajeTest {
 	}
 	
 	
-	@Test
+	//@Test
 	public void modificarTareaEstado(){
 		Tarea tarea=tsl.findById("49cf426e-feb3-4cae-a9a7-f4a52d117831");
 		
