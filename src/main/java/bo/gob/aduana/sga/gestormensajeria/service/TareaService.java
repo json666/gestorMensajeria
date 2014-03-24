@@ -3,9 +3,10 @@ package bo.gob.aduana.sga.gestormensajeria.service;
 import java.util.List;
 
 import bo.gob.aduana.sga.core.bean.oce.JsonResult;
+import bo.gob.aduana.sga.core.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.NullDeclaracionException;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.ValidacionException;
-import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
+
 
 
 public interface TareaService {

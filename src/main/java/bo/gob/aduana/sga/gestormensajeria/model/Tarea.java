@@ -6,11 +6,12 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import bo.gob.aduana.sga.core.domain.document.Documento;
 import bo.gob.aduana.sga.gestormensajeria.model.Opcion;
 import bo.gob.aduana.sga.gestormensajeria.model.TipoMensaje;
 
 @Document(collection = "tareas")
-public class Tarea extends BaseEntity implements Serializable {
+public class Tarea extends Documento implements Serializable {
 	
 	/**
 	 * 

@@ -1,6 +1,6 @@
 package bo.gob.aduana.sga.gestormensajeria.service;
 
-import bo.gob.aduana.sga.gestormensajeria.bean.MessageEmailBean;
+import bo.gob.aduana.sga.core.gestormensajeria.bean.MessageEmailBean;
 
 
 

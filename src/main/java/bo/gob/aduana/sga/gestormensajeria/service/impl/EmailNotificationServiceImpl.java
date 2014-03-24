@@ -17,7 +17,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-import bo.gob.aduana.sga.gestormensajeria.bean.MessageEmailBean;
+import bo.gob.aduana.sga.core.gestormensajeria.bean.MessageEmailBean;
 import bo.gob.aduana.sga.gestormensajeria.service.EmailNotificationService;
 
 @Service
@@ -60,7 +60,6 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
 			mailSender.send(msg);
 			mail.setStatus("OK");
 		} catch (MailException ex) {
-			// System.err.println(ex.getMessage());
 			System.out.println(ex);
 			mail.setStatus("NOK");
 		}

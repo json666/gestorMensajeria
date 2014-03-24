@@ -12,7 +12,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import bo.gob.aduana.sga.gestormensajeria.bean.MessageEmailBean;
+import bo.gob.aduana.sga.core.gestormensajeria.bean.MessageEmailBean;
 import bo.gob.aduana.sga.gestormensajeria.service.EmailNotificationService;
 import bo.gob.aduana.sga.gestormensajeria.service.impl.EmailNotificationServiceImpl;
 import bo.gob.aduana.sga.gestormensajeria.test.utils.SpringMongoConfig;

@@ -1,9 +1,9 @@
 package bo.gob.aduana.sga.gestormensajeria.service.impl;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import bo.gob.aduana.sga.core.gestormensajeria.model.Tarea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import bo.gob.aduana.sga.core.bean.oce.JsonResult;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.NullDeclaracionException;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.ValidacionException;
-import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.repository.TareaRepository;
 import bo.gob.aduana.sga.gestormensajeria.service.TareaService;
 

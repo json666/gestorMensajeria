@@ -1,22 +1,12 @@
 package bo.gob.aduana.sga.gestormensajeria.jms;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import javax.jms.TextMessage;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
+import bo.gob.aduana.sga.core.gestormensajeria.model.Mensaje;
 import bo.gob.aduana.sga.gestormensajeria.service.impl.MensajeServiceImpl;
 
 

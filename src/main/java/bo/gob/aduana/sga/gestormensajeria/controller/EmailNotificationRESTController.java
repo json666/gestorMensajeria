@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import bo.gob.aduana.sga.gestormensajeria.bean.MessageEmailBean;
+import bo.gob.aduana.sga.core.gestormensajeria.bean.MessageEmailBean;
 import bo.gob.aduana.sga.gestormensajeria.service.EmailNotificationService;
 import bo.gob.aduana.sga.gestormensajeria.utils.JsonResult;
 
@@ -37,11 +37,4 @@ public class EmailNotificationRESTController {
 		}
 		return new JsonResult(true,"Mensaje enviado");
 	}
-
-
-	
-
-	
-	
-
 }

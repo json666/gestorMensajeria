@@ -9,7 +9,9 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
+import bo.gob.aduana.sga.core.gestormensajeria.model.Mensaje;
+
+
 
 @Repository
 public interface MensajeRepository extends CrudRepository<Mensaje, String>{

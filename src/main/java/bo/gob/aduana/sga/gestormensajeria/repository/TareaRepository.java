@@ -6,7 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
+import bo.gob.aduana.sga.core.gestormensajeria.model.Tarea;
+
+
 
 
 public interface TareaRepository extends PagingAndSortingRepository<Tarea, String>{

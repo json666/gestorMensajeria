@@ -1,52 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" 
-	xmlns:jms="http://www.springframework.org/schema/jms"
-	xmlns:core="http://activemq.apache.org/schema/core" 
-	xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:lang="http://www.springframework.org/schema/lang"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:core="http://activemq.apache.org/schema/core" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.3.xsd
 		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.9.0.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
-		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
-		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<mvc:annotation-driven />
-
+ 
 	<context:component-scan base-package="bo.gob.aduana.sga.gestormensajeria" />
+	<!-- <jee:jndi-lookup id="mailSession" jndi-name="java:jboss/mail/mailLogin"/> -->
 
-
-	<!-- mail Session -->
+	<!--  mail Session -->
 	<!-- <bean id="mailSessionBean" -->
 	<!-- class="bo.gob.aduana.sga.gestormensajeria.bean.MailSessionBean"> -->
-	<!-- <property name="mailSession"> -->
-	<!-- <ref bean="mailSession"/> -->
-	<!-- </property> -->
-	<!-- </bean> -->
-
-	<!-- <bean id="smtpAuthenticator" class="bo.gob.aduana.sga.gestormensajeria.bean.SmtpAuthenticator"> -->
-	<!-- <property name="username" value="osanchez@aduana.gob.bo"/> -->
-	<!-- <property name="password" value="j@son123"/> -->
-	<!-- </bean> -->
-
-	<!-- <bean id="mailSession" class="javax.mail.Session" factory-method="getInstance"> -->
-	<!-- <constructor-arg> -->
-	<!-- <props> -->
-	<!-- <prop key="mail.smtp.host">anbdm4.aduana.gob.bo</prop> -->
-	<!-- <prop key="mail.smtp.port">25</prop> -->
-	<!-- <prop key="mail.smtp.auth">true</prop> -->
-	<!-- </props> -->
-	<!-- </constructor-arg> -->
-	<!-- <constructor-arg ref="smtpAuthenticator" /> -->
+	<!-- <property name="mailSession" ref="mailSession"/> -->
 	<!-- </bean> -->
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -76,7 +53,6 @@
 			</value>
 		</property>
 	</bean>
-
 
 	<mongo:auditing auditor-aware-ref="auditor" />
 	<bean id="auditor"
@@ -110,6 +86,7 @@
 	</bean>
 
 	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="watchTopicAdvisories" value="false" />
 		<property name="brokerURL" value="${activemq.test.url}" />
 		<property name="userName" value="${activemq.test.user}" />
 		<property name="password" value="${activemq.test.password}" />
@@ -122,35 +99,35 @@
 	</bean>
 	<!-- ActiveMQ Email -->
 	<!-- JmsTemplate Correo Definition -->
-	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+	<bean id="jmsTemplateEmailQueue" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="defaultDestination" ref="defaultDestination" />
+		<property name="defaultDestination" ref="defaultDestinationQueue" />
 		<property name="messageConverter" ref="messageConverter" />
 		<property name="sessionTransacted" value="true" />
 	</bean>
 
 	<!-- Default Destination Topic Definition Correo -->
-	<bean id="defaultDestination" class="org.apache.activemq.command.ActiveMQQueue">
+	<bean id="defaultDestinationQueue" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg index="0" value="${activemq.correo.queue}" />
 	</bean>
 	<bean id="messageConverter"
 		class="org.springframework.jms.support.converter.SimpleMessageConverter" />
 
-	<bean id="jmsTemplateCopy" class="org.springframework.jms.core.JmsTemplate">
+	<bean id="jmsTemplateEmailTopic" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="messageConverter" ref="messageConverter" />
-		<property name="defaultDestination" ref="defaultDestinationCopy" />
+		<property name="defaultDestination" ref="defaultDestinationTopic" />
 		<property name="sessionTransacted" value="true" />
 	</bean>
 
-	<bean id="defaultDestinationCopy" class="org.apache.activemq.command.ActiveMQTopic">
+	<bean id="defaultDestinationTopic" class="org.apache.activemq.command.ActiveMQTopic">
 		<constructor-arg index="0" value="${activemq.correo.topic}" />
 	</bean>
 
 	<!-- Message Sender Correo Definition -->
 	<bean id="messageSender"
 		class="bo.gob.aduana.sga.gestormensajeria.service.impl.MessageSenderEmailImpl">
-		<constructor-arg index="0" ref="jmsTemplate" />
+		<constructor-arg index="0" ref="jmsTemplateEmailQueue" />
 	</bean>
 
 	<!-- Message Receiver Definition -->
@@ -165,31 +142,31 @@
 	</bean>
 	<!-- End ActiveMQ Email -->
 	<!-- ActiveMQ Task -->
-	<bean id="jmsTemplateTarea" class="org.springframework.jms.core.JmsTemplate">
+	<bean id="jmsTemplateTaskQueue" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="defaultDestination" ref="defaultDestinationTarea" />
+		<property name="defaultDestination" ref="defaultDestinationTaskQueue" />
 		<property name="pubSubDomain" value="false" />
 	</bean>
 	<!-- Default Destination Topic Definition Correo -->
-	<bean id="defaultDestinationTarea" class="org.apache.activemq.command.ActiveMQQueue">
+	<bean id="defaultDestinationTaskQueue" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg index="0" value="${activemq.tarea.queue}" />
 	</bean>
 
 	<!-- ActiveMQ Task -->
-	<bean id="jmsTemplateTareaCopia" class="org.springframework.jms.core.JmsTemplate">
+	<bean id="jmsTemplateTaskTopic" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="defaultDestination" ref="defaultDestinationTareaCopia" />
+		<property name="defaultDestination" ref="defaultDestinationTaskTopic" />
 		<property name="pubSubDomain" value="true" />
 	</bean>
 	<!-- Default Destination Topic Definition Correo -->
-	<bean id="defaultDestinationTareaCopia" class="org.apache.activemq.command.ActiveMQTopic">
+	<bean id="defaultDestinationTaskTopic" class="org.apache.activemq.command.ActiveMQTopic">
 		<constructor-arg index="0" value="${activemq.tarea.topic}" />
 	</bean>
 
 	<!-- Message Sender Correo Definition -->
 	<bean id="messageSenderTask"
 		class="bo.gob.aduana.sga.gestormensajeria.service.impl.MessageTaskImpl">
-		<constructor-arg index="0" ref="jmsTemplateTarea" />
+		<constructor-arg index="0" ref="jmsTemplateTaskQueue" />
 	</bean>
 
 	<!-- Message Receiver Definition -->
@@ -204,3 +181,4 @@
 	<!-- End ActiveMQ Task -->
 
 </beans>
+

@@ -7,10 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import bo.gob.aduana.sga.core.gestormensajeria.model.Mensaje;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.NullDeclaracionException;
-import bo.gob.aduana.sga.gestormensajeria.excepciones.ValidacionException;
-import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
-import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.repository.MensajeRepository;
 import bo.gob.aduana.sga.gestormensajeria.service.MensajeService;
 

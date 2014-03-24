@@ -6,6 +6,9 @@ import java.util.HashMap;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import bo.gob.aduana.sga.core.domain.document.BaseDocument;
+import bo.gob.aduana.sga.core.domain.document.Documento;
+
 /**
  * 
  * @author mcardenas
@@ -17,13 +20,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * descripcion:adicionando atributos Nro. tramite, tambien se modifico el atributo fecha de tipo Date por String. 	
  */
 @Document(collection = "mensajes")
-public class Mensaje extends BaseEntity implements Serializable {
+public class Mensaje extends BaseDocument implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//private TipoMensaje tipo;
 	private String tipo;
 	private String remitente;
 	private String fecha;

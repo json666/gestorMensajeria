@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import bo.gob.aduana.sga.gestormensajeria.model.Mensaje;
-import bo.gob.aduana.sga.gestormensajeria.model.Opcion;
-import bo.gob.aduana.sga.gestormensajeria.model.Tarea;
+import bo.gob.aduana.sga.core.gestormensajeria.model.Mensaje;
+import bo.gob.aduana.sga.core.gestormensajeria.model.Opcion;
+import bo.gob.aduana.sga.core.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.service.MensajeService;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageSender;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageTask;
@@ -35,7 +35,6 @@ public class MensajeRESTController {
 
 	@Autowired(required = true)
 	private MessageTask<Tarea> messageTask;
-
 
 
 	@RequestMapping(value = "/mensajes", method = RequestMethod.GET)

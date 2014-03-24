@@ -272,9 +272,14 @@
 				<mongo.dbname>msg</mongo.dbname>
 				<mongo.username />
 				<mongo.password />
+				<activemq.url>tcp://localhost:61616</activemq.url>
+				<activemq.user>sga_q_test</activemq.user>
+				<activemq.password>sga_q_test</activemq.password>
+				<activemq.transacted_session>true</activemq.transacted_session>
+				<activemq.timeout>1000</activemq.timeout>
 				<activemq.test.url>tcp://localhost:61616</activemq.test.url>
-				<activemq.test.user>ActiveMQConnection.DEFAULT_USER</activemq.test.user>
-				<activemq.test.password>ActiveMQConnection.DEFAULT_PASSWORD</activemq.test.password>
+				<activemq.test.user>sga_q_test</activemq.test.user>
+				<activemq.test.password>sga_q_test</activemq.test.password>
 				<activemq.test.transacted_session>true</activemq.test.transacted_session>
 				<activemq.test.timeout>1000</activemq.test.timeout>
 			</properties>
@@ -283,11 +288,16 @@
 		<profile>
 			<id>dev</id>
 			<properties>
-				<mongo.host>localhost</mongo.host>
+				<mongo.host>10.0.4.73</mongo.host>
 				<mongo.port>27017</mongo.port>
 				<mongo.dbname>msg</mongo.dbname>
 				<mongo.username />
 				<mongo.password />
+				<activemq.url>tcp://10.0.4.83:61616</activemq.url>
+				<activemq.user>ActiveMQConnection.DEFAULT_USER</activemq.user>
+				<activemq.password>ActiveMQConnection.DEFAULT_PASSWORD</activemq.password>
+				<activemq.transacted_session>true</activemq.transacted_session>
+				<activemq.timeout>1000</activemq.timeout>
 				<activemq.test.url>tcp://localhost:61616</activemq.test.url>
 				<activemq.test.user>ActiveMQConnection.DEFAULT_USER</activemq.test.user>
 				<activemq.test.password>ActiveMQConnection.DEFAULT_PASSWORD</activemq.test.password>
@@ -304,7 +314,12 @@
 				<mongo.dbname>desa01m</mongo.dbname>
 				<mongo.username>desarrollo</mongo.username>
 				<mongo.password>1234</mongo.password>
-				<activemq.test.url>tcp://10.100.70.119:80</activemq.test.url>
+				<activemq.url>tcp://10.100.70.119:61716</activemq.url>
+				<activemq.user>sga_q_test</activemq.user>
+				<activemq.password>sga_q_test</activemq.password>
+				<activemq.transacted_session>true</activemq.transacted_session>
+				<activemq.timeout>1000</activemq.timeout>
+				<activemq.test.url>tcp://10.100.70.119:61716</activemq.test.url>
 				<activemq.test.user>sga_q_test</activemq.test.user>
 				<activemq.test.password>sga_q_test</activemq.test.password>
 				<activemq.test.transacted_session>true</activemq.test.transacted_session>
@@ -320,6 +335,11 @@
 				<mongo.username />
 				<mongo.password />
 				<application.url_service />
+				<activemq.url/>
+				<activemq.user/>
+				<activemq.password/>
+				<activemq.transacted_session/>
+				<activemq.timeout/>
 				<activemq.test.url />
 				<activemq.test.user />
 				<activemq.test.password />
