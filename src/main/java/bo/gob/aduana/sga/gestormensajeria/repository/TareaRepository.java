@@ -21,16 +21,11 @@ public interface TareaRepository extends PagingAndSortingRepository<Tarea, Strin
 	
 	@Query("{sucursal:?0, rol:?1, id_usuario:?2}")
 	public List<Tarea> findByUserAndRolSucursal(String suc, String rol, String id_usuario);
-	
-	@Query("{rol:?0}")
-	public List<Tarea> findByUser(String rol, Pageable pageable);
-	
-	
+
+    @Query("{id_usuario:?0}")
+	public List<Tarea> findByDisabledFalse(String id_usuario, Pageable pageable);
+
 	@Query("{rol:?0}")
 	public List<Tarea> findByRolIgnoreCase(String rol);
-	
-	
-	
-	
-	
+
 }

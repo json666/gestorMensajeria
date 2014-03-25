@@ -87,9 +87,9 @@
 
 	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
 		<property name="watchTopicAdvisories" value="false" />
-		<property name="brokerURL" value="${activemq.test.url}" />
-		<property name="userName" value="${activemq.test.user}" />
-		<property name="password" value="${activemq.test.password}" />
+		<property name="brokerURL" value="${activemq.url}" />
+		<property name="userName" value="${activemq.user}" />
+		<property name="password" value="${activemq.password}" />
 	</bean>
 
 	<!-- ConnectionFactory Definition -->

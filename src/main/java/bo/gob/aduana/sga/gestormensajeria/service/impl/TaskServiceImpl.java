@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import bo.gob.aduana.sga.core.gestormensajeria.model.Tarea;
+import bo.gob.aduana.sga.gestormensajeria.utils.JsonResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import bo.gob.aduana.sga.core.bean.oce.JsonResult;
+
 import bo.gob.aduana.sga.gestormensajeria.excepciones.NullDeclaracionException;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.ValidacionException;
 import bo.gob.aduana.sga.gestormensajeria.repository.TareaRepository;
@@ -107,9 +108,9 @@ public class TaskServiceImpl implements TareaService {
 		// TODO Auto-generated method stub
 		logger.debug("Pagina solicitada {}", pagina);
 		String ordenCampo = "id_usuario";
-		PageRequest page = new PageRequest(pagina, 10, Direction.ASC,
+		PageRequest page = new PageRequest(pagina, 7, Direction.ASC,
 				ordenCampo);
-		List<Tarea> lista = tareaRepository.findByUser(id_usuario, page);
+		List<Tarea> lista = tareaRepository.findByDisabledFalse(id_usuario,page);
 		logger.debug("Registros recuperados {}", lista.size());
 		if (lista == null || lista.size() == 0) {
 			return new JsonResult(false, "No existen registros.");
@@ -119,8 +120,7 @@ public class TaskServiceImpl implements TareaService {
 
 	@Override
 	public List<Tarea> findByRol(String rol) {
-		return (List<Tarea>) tareaRepository.findByRolIgnoreCase(rol
-				.toUpperCase());
+        return (List<Tarea>) tareaRepository.findByRolIgnoreCase(rol);
 	}
 
 

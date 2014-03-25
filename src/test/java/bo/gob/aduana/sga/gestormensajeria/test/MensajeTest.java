@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
+import bo.gob.aduana.sga.gestormensajeria.utils.JsonRest;
+import bo.gob.aduana.sga.gestormensajeria.utils.JsonResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +29,17 @@ import bo.gob.aduana.sga.gestormensajeria.service.TareaService;
 import bo.gob.aduana.sga.gestormensajeria.test.utils.SpringMongoConfig;
 
 /**
- * 
  * @author mcardenas
- * 
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/testDispatcher.xml" })
+@ContextConfiguration(locations = {"/testDispatcher.xml"})
 public class MensajeTest {
-	// Carga de la conexion a MongoDB y cargar el DAO de prueba
-	private final ApplicationContext context = new AnnotationConfigApplicationContext(
-			SpringMongoConfig.class);
-	private final MongoOperations mongoOperations = (MongoOperations) context
-			.getBean("mongoTemplate");
+    // Carga de la conexion a MongoDB y cargar el DAO de prueba
+    private final ApplicationContext context = new AnnotationConfigApplicationContext(
+            SpringMongoConfig.class);
+    private final MongoOperations mongoOperations = (MongoOperations) context
+            .getBean("mongoTemplate");
 
 //	@Autowired
 //	MessageSender<Mensaje> msg;
@@ -46,14 +47,14 @@ public class MensajeTest {
 //	@Autowired
 //	MensajeService msl;
 
-	@Autowired
-	MessageTask<Tarea> task;
+    @Autowired
+    MessageTask<Tarea> task;
 
-	@Autowired
-	TareaService tsl;
-	
-	@Autowired
-	EmailNotificationService emailService;
+    @Autowired
+    TareaService tsl;
+
+    @Autowired
+    EmailNotificationService emailService;
 
 //	//@Test
 //	public void sendMensaje() {
@@ -121,36 +122,36 @@ public class MensajeTest {
 //
 //		}
 //	}
-	
-	@Test
-	public void testSendTarea(){
-		List<Opcion> opciones= new ArrayList<Opcion>();
-		Opcion opc= new Opcion();
-		opc.setLink("http://127.0.0.1/oce/listener.html#/listener/verCarpeta&123456789/oce/");
-		opc.setTextLink("Ver Tarea");
-		opciones.add(opc);
-		Opcion opc1= new Opcion();
-		opc1.setLink("http://127.0.0.1/oce/listener.html#/listener/procesar&123766789/oce/");
-		opc1.setTextLink("Procesar");
-		opciones.add(opc1);
-		Tarea tarea = new Tarea(TipoMensaje.NOTIFICACION,
-				"jheyson sanchez", 
-				"13/03/2013",
-				"ramiro perez",
-				"gerson", 
-				opciones,
-				"ver proceso, ver carpeta",
-				"PROCESAR", 
-				"12333555555", 
-				"REVISADO", 
-				"analista", 
-				"SANTA CRUZ", 
-				"454444");
-		System.out.println("OBJETO TAREA");
-		task.send(tarea);
-		System.out.println("Mensaje creado es: " + task);
-	}
-	
+
+    @Test
+    public void testSendTarea() {
+        List<Opcion> opciones = new ArrayList<Opcion>();
+        Opcion opc = new Opcion();
+        opc.setLink("http://127.0.0.1/oce/listener.html#/listener/verCarpeta&123456789/oce/");
+        opc.setTextLink("Ver Tarea");
+        opciones.add(opc);
+        Opcion opc1 = new Opcion();
+        opc1.setLink("http://127.0.0.1/oce/listener.html#/listener/procesar&123766789/oce/");
+        opc1.setTextLink("Procesar");
+        opciones.add(opc1);
+        Tarea tarea = new Tarea(TipoMensaje.NOTIFICACION,
+                "ramiro loza",
+                "25/03/2013",
+                "ramiro perez",
+                "juan carlos perez",
+                opciones,
+                "ver proceso",
+                "PROCESAR",
+                "2222222A",
+                "REVISADO",
+                "plataforma",
+                "la paz",
+                "22222222B");
+        System.out.println("OBJETO TAREA");
+        task.send(tarea);
+        System.out.println("Mensaje creado es: " + task);
+    }
+
 //	@Test
 //	public void sendMail(){
 //		MessageEmailBean beanMail;
@@ -160,10 +161,10 @@ public class MensajeTest {
 //		beanMail.setContent("Contenido basico");
 //		emailService.sendEmail(beanMail);
 //	}
-	
+
 //	//@Test
 //	public void sendEmail(){
-//		Mensaje mensaje= new Mensaje(TipoMensaje.CORREO, 
+//		Mensaje mensaje= new Mensaje(TipoMensaje.CORREO,
 //				"jheyson sanchez",
 //				"13/03/2014",
 //				"Esto es un email de tipo notificacion",
@@ -172,58 +173,57 @@ public class MensajeTest {
 //				"A565645444",
 //				"588533333444");
 //		msg.send(mensaje);
-//		
+//
 //	}
-	
-	//@Test
-	public void listarRol(){
-		List<Tarea> mensajeListTarea = (List<Tarea>) tsl.findByRol("ANALISTA");
-		System.out.println("LISTA DE TAREAS debe contener elementos: "
-				+ mensajeListTarea.size());
-		for (Iterator iterator = mensajeListTarea.iterator(); iterator
-				.hasNext();) {
-			Tarea tarea = (Tarea) iterator.next();
-			System.out.println("-------------------o----------------------");
-			System.out.println("value 1:" + tarea.getId_usuario());
-			System.out.println("value 2:" + tarea.getSucursal());
-			System.out.println("value 3:" + tarea.getRol());
-			System.out.println("value 4:" + tarea.getRemitente());
-			System.out.println("value 5:" + tarea.getTipoTramite());
 
-		}
-		
-	}
-	
-	//@Test
-	public void testModificarTarea(){
-		List<Opcion> opciones= new ArrayList<Opcion>();
-		Opcion opc= new Opcion();
-		opc.setLink("http://127.0.0.1/oce/listener.html#/listener/verCarpeta&123456789/oce/");
-		opc.setTextLink("Ver Tarea");
-		opciones.add(opc);
-		Opcion opc1= new Opcion();
-		opc1.setLink("http://127.0.0.1/oce/listener.html#/listener/procesar&123766789/oce/");
-		opc1.setTextLink("Procesar");
-		opciones.add(opc1);
-		System.out.println("OBJETO TAREA");
-		Tarea tareaPrincipal=(Tarea)tsl.findById("d920cb98-7736-4021-8a8c-77b902cc4b6e");
-		tareaPrincipal.setEstado("OBSERVADO");
-		tareaPrincipal.setRol("plataforma");
-		System.out.println("DES:"+tareaPrincipal.getDestinatario());
-		System.out.println("EST:"+tareaPrincipal.getEstado());
-		System.out.println("ID:"+tareaPrincipal.getId());
-		System.out.println("PROC:"+tareaPrincipal.getProceso());
-		System.out.println("ROL:"+tareaPrincipal.getRol());
-		task.send(tareaPrincipal);
+    //@Test
+    public void listarRol() {
+        List<Tarea> mensajeListTarea = (List<Tarea>) tsl.findByRol("ANALISTA");
+        System.out.println("LISTA DE TAREAS debe contener elementos: "
+                + mensajeListTarea.size());
+        for (Iterator iterator = mensajeListTarea.iterator(); iterator
+                .hasNext(); ) {
+            Tarea tarea = (Tarea) iterator.next();
+            System.out.println("-------------------o----------------------");
+            System.out.println("value 1:" + tarea.getId_usuario());
+            System.out.println("value 2:" + tarea.getSucursal());
+            System.out.println("value 3:" + tarea.getRol());
+            System.out.println("value 4:" + tarea.getRemitente());
+            System.out.println("value 5:" + tarea.getTipoTramite());
 
-	}
-	
-	
-	//@Test
-	public void modificarTareaEstado(){
-		Tarea tarea=tsl.findById("49cf426e-feb3-4cae-a9a7-f4a52d117831");
-		
-		
+        }
+
+    }
+
+    //@Test
+    public void testModificarTarea() {
+        List<Opcion> opciones = new ArrayList<Opcion>();
+        Opcion opc = new Opcion();
+        opc.setLink("http://127.0.0.1/oce/listener.html#/listener/verCarpeta&123456789/oce/");
+        opc.setTextLink("Ver Tarea");
+        opciones.add(opc);
+        Opcion opc1 = new Opcion();
+        opc1.setLink("http://127.0.0.1/oce/listener.html#/listener/procesar&123766789/oce/");
+        opc1.setTextLink("Procesar");
+        opciones.add(opc1);
+        System.out.println("OBJETO TAREA");
+        Tarea tareaPrincipal = (Tarea) tsl.findById("d920cb98-7736-4021-8a8c-77b902cc4b6e");
+        tareaPrincipal.setEstado("OBSERVADO");
+        tareaPrincipal.setRol("plataforma");
+        System.out.println("DES:" + tareaPrincipal.getDestinatario());
+        System.out.println("EST:" + tareaPrincipal.getEstado());
+        System.out.println("ID:" + tareaPrincipal.getId());
+        System.out.println("PROC:" + tareaPrincipal.getProceso());
+        System.out.println("ROL:" + tareaPrincipal.getRol());
+        task.send(tareaPrincipal);
+
+    }
+
+
+    //@Test
+    public void modificarTareaEstado() {
+        Tarea tarea = tsl.findById("49cf426e-feb3-4cae-a9a7-f4a52d117831");
+
 
 //		Tarea tarea = new Tarea(
 //				TipoMensaje.NOTIFICACION,
@@ -241,11 +241,41 @@ public class MensajeTest {
 //				"12aa33bb00cv");
 //		tarea.setId("18905437-7fd9-4bda-8518-bd3f2bca3d45");
         tarea.setEstado("PENDIENTE");
-		System.out.println("OBJETO TAREA");
-		task.send(tarea);
-		System.out.println("Mensaje creado es: " + task);
-	}
-	
-	
+        System.out.println("OBJETO TAREA");
+        task.send(tarea);
+        System.out.println("Mensaje creado es: " + task);
+    }
+
+    @Test
+    public void paginadorTarea() {
+        System.out.println("Cargando........");
+        JsonResult jsonResult = null;
+        //List<Tarea> listaTarea=tsl.findAll("GGGGG32323235555555551111G33",3);
+        jsonResult = tsl.findAll("GGGGG32323235555555551111G33", 1);
+        if (jsonResult.getSuccess()) {
+            List<Tarea> listaTarea = (List<Tarea>) jsonResult.getResult();
+            for (Tarea tarea : listaTarea) {
+                System.out.println("+-+" + tarea.getId_usuario() + "+-+" + "+-+" + tarea.getId() + "+-+" + "+-+" + "+-+" + tarea.getProceso() + "+-+");
+            }
+        }else{
+            System.out.println(jsonResult.getResult().toString());
+        }
+    }
+
+    /*@Test
+    public void paginadorMensajes() {
+        System.out.println("Cargando........");
+        JsonResult jsonResult = null;
+        //List<Tarea> listaTarea=tsl.findAll("GGGGG32323235555555551111G33",3);
+        jsonResult = tsl.findAll("GGGGG32323235555555551111G33", 1);
+        if (jsonResult.getSuccess()) {
+            List<Mensaje> listaMensaje = (List<Mensaje>) jsonResult.getResult();
+            for (Mensaje mensaje : listaMensaje) {
+                System.out.println("+-+" + mensaje.getId_usuario() + "+-+" + "+-+" + mensaje.getId() + "+-+" + "+-+" + "+-+" + mensaje.getCuerpo() + "+-+");
+            }
+        }else{
+            System.out.println(jsonResult.getResult().toString());
+        }
+    }*/
 
 }

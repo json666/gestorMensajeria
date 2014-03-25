@@ -124,7 +124,7 @@ public class MensajeRESTController {
 	@RequestMapping(value = "/tareas/rol/{rol}", method = RequestMethod.GET)
 	@ResponseBody
 	public JsonResult listByRol(@PathVariable String rol) {
-		return new JsonResult(true, tareaService.findByRol(rol));
+		return new JsonResult(true, tareaService.findByRol(rol.toUpperCase()));
 	}
 	
 	

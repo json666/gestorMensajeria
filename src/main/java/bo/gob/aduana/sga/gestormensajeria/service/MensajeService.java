@@ -5,6 +5,7 @@ import java.util.List;
 import bo.gob.aduana.sga.core.gestormensajeria.model.Mensaje;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.NullDeclaracionException;
 import bo.gob.aduana.sga.gestormensajeria.excepciones.ValidacionException;
+import bo.gob.aduana.sga.gestormensajeria.utils.JsonResult;
 
 
 public interface MensajeService {
@@ -75,5 +76,7 @@ public interface MensajeService {
 	 * @return lista de documentos por usuario
 	 */
 	public List<Mensaje> findByUser(String id);
+
+    public JsonResult findAll(String id, int pagina);
 
 }

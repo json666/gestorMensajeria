@@ -35,9 +35,10 @@ public class MessageTaskImpl implements MessageTask<Tarea> {
 	}
 
 	@Override
-	public void send(final Tarea msg) {
-		System.out.print(msg.getUrls());
-		
+	public void send(Tarea msg) {
+        String rolStr=msg.getRol().toUpperCase();
+        final Tarea tarea=msg;
+        tarea.setRol(rolStr);
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		try {		
@@ -48,7 +49,7 @@ public class MessageTaskImpl implements MessageTask<Tarea> {
 				@Override
 				public Message createMessage(Session session) throws JMSException {
 					ObjectMessage message=session.createObjectMessage();
-					message.setObject(msg);
+					message.setObject(tarea);
 					return message;
 				}
 			});
