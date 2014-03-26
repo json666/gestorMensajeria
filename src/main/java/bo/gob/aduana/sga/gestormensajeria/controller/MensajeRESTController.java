@@ -93,28 +93,17 @@ public class MensajeRESTController {
 		return new JsonResult(true, tareaService.findByUserAndRolSucursal(
 				sucursal, rol, id_user));
 	}
+   /* Author: Jheyson Sanchez
+    * Descripcion: Este servicio envia tareas a la bandeja de Analista y Plataforma
+    * fecha: 10-03-2014
+    */
 
-	@RequestMapping(value = "/tarea", method = RequestMethod.POST, headers = "Content-Type=application/json")
-	@ResponseBody
-	public JsonResult creaTarea(@RequestBody Tarea tarea) {
-		System.out.println("ingresando al servicio..........................");
-		if (tarea.getUrls() != null) {
-
-			List<Opcion> opciones = tarea.getUrls();
-			for (Iterator iterator = opciones.iterator(); iterator.hasNext();) {
-				Opcion opcion = (Opcion) iterator.next();
-				System.out.println("URL" + opcion.getLink());
-
-			}
-			System.out.println("Tarea:" + tarea.getUrls());
-			messageTask.send(tarea);
-			return new JsonResult(true, null);
-		} else {
-			System.out.println("sin URL...");
-			messageTask.send(tarea);
-			return new JsonResult(false, null);
-		}
-	}
+    @RequestMapping(value = "/tarea", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @ResponseBody
+    public JsonResult creaTarea(@RequestBody Tarea tarea) {
+        System.out.println("Ingresando al servicio..........................");
+       return messageTask.send(tarea);
+    }
 	
 	/*
 	 * Descripcion:Filtrar tarea por Rol
@@ -126,54 +115,17 @@ public class MensajeRESTController {
 	public JsonResult listByRol(@PathVariable String rol) {
 		return new JsonResult(true, tareaService.findByRol(rol.toUpperCase()));
 	}
-	
-	
 
-	@RequestMapping(value = "/edit/rol/tarea", method = RequestMethod.POST, headers = "Content-Type=application/json")
-	@ResponseBody
-	public JsonResult modificarTarea(@RequestBody Tarea tarea) {
-		System.out.println("ingresando al servicio..........................");
-		JsonResult jsonResult=null;
-		if (tarea.getId() != null) {
-
-			System.out.println("Tarea:" + tarea.getUrls());
-			messageTask.send(tarea);
-			jsonResult= new JsonResult(true, null);
-			
-		} else {
-			System.out.println("sin URL...");
-			messageTask.send(tarea);
-			jsonResult= new JsonResult(false, null);
-
-		}
-		return jsonResult;
-	}
-	
-	/*
+    /*
 	 * Author:Jheyson Sanchez
 	 * Descripcion: Actualiza el estado de la TAREA
+	 * Fecha:26-03-2014
 	 */
-	
-	@RequestMapping(value = "/edit/tarea",  method = RequestMethod.POST, headers = "Content-Type=application/json")
-	@ResponseBody
-	public JsonResult modificarTareaEstado(@RequestBody Tarea tarea) {
-		System.out.println("ingresando al servicio..........................");
-		Tarea tareaPrincipal=(Tarea)tareaService.findById(tarea.getId());
-		JsonResult jsonResult=null;
-		if (tareaPrincipal.getId() != null) {
-			tareaPrincipal.setEstado(tarea.getEstado().toUpperCase());
-			messageTask.send(tareaPrincipal);
-			jsonResult= new JsonResult(true, null);
-			
-		} else {
-			jsonResult= new JsonResult(false, null);
-
-		}
-		return jsonResult;
-	}
-	
-
-	
-	
-
+    @RequestMapping(value = "/edit/tarea",  method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @ResponseBody
+    public JsonResult modificarTareaEstado(@RequestBody Tarea tarea) {
+        System.out.println("ingresando al servicio para modificacion..........................");
+        return messageTask.edit(tarea);
+    }
+    
 }

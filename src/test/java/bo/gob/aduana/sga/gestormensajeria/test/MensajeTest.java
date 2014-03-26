@@ -71,23 +71,21 @@ public class MensajeTest {
 //		String mg = "{\"tipo\" : \"Actualizacipon de datos\",\"remitente\" : \"jheyson sanchez\",\"tiempo\" : null,\"fecha\" : \"\",\"cuerpo\":\"queue-topic\",\"destinatario\" : \"Banco ganadera S.A.\",\"url\" : \"www.altavista.com\",\"accion\" : \"procesar\",\"proceso\" : \"Padron de Operadores\",\"tipoTramite\" : \"Actualizacion de Operadores\",\"nroTramite\" : \"2014-231-0156\",\"estado\" : \"Observado\",\"rol\":\"ANALISTA\",\"sucursal\":\"SANTA CRUZ\",\"id_usuario\":\"A123456\"}";
 //	}
 //
-//	//@Test
-//	public void testListTarea() throws ClassNotFoundException, SQLException {
-//
-//		List<Tarea> mensajeListTarea = tsl.listAll();
-//		System.out.println("LISTA DE TAREAS debe contener elementos: "
-//				+ mensajeListTarea.size());
-//		for (Iterator iterator = mensajeListTarea.iterator(); iterator
-//				.hasNext();) {
-//			Tarea tarea = (Tarea) iterator.next();
-//			System.out.println("-------------------o----------------------");
-//			System.out.println("value 1:" + tarea.getId_usuario());
-//			System.out.println("value 2:" + tarea.getTipo().toString());
-//
-//		}
-//
-//		
-//	}
+@Test
+public void testListTarea() throws ClassNotFoundException, SQLException {
+
+    List<Tarea> mensajeListTarea = tsl.listAll();
+    System.out.println("LISTA DE TAREAS debe contener elementos: "
+            + mensajeListTarea.size());
+    for (Iterator iterator = mensajeListTarea.iterator(); iterator
+            .hasNext(); ) {
+        Tarea tarea = (Tarea) iterator.next();
+        System.out.println("-------------------o----------------------");
+        System.out.println("value 1:" + tarea.getId_usuario());
+        System.out.println("value 2:" + tarea.getTipo().toString());
+
+    }
+}
 //	
 //	//@Test
 //	public void testListarPorUsuario(){
