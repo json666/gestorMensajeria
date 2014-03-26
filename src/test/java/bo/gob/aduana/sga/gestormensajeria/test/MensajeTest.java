@@ -8,6 +8,7 @@ import java.util.List;
 
 import bo.gob.aduana.sga.gestormensajeria.utils.JsonRest;
 import bo.gob.aduana.sga.gestormensajeria.utils.JsonResult;
+import com.google.inject.internal.util.$SourceProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,21 +133,25 @@ public void testListTarea() throws ClassNotFoundException, SQLException {
         opc1.setLink("http://127.0.0.1/oce/listener.html#/listener/procesar&123766789/oce/");
         opc1.setTextLink("Procesar");
         opciones.add(opc1);
+
         Tarea tarea = new Tarea(TipoMensaje.NOTIFICACION,
-                "ramiro loza",
-                "25/03/2013",
-                "ramiro perez",
-                "juan carlos perez",
+                "juan apaza",
+                "26/03/2013",
+                "yolanda nina",
+                "calderon",
                 opciones,
                 "ver proceso",
                 "PROCESAR",
-                "2222222A",
-                "REVISADO",
-                "plataforma",
-                "la paz",
-                "22222222B");
+                "07",
+                "procesar",
+                "analista",
+                "tarija",
+                "9999CC");
         System.out.println("OBJETO TAREA");
-        task.send(tarea);
+        for(int i=0;i<=10;i++){
+            task.send(tarea);
+        }
+
         System.out.println("Mensaje creado es: " + task);
     }
 
@@ -249,11 +254,29 @@ public void testListTarea() throws ClassNotFoundException, SQLException {
         System.out.println("Cargando........");
         JsonResult jsonResult = null;
         //List<Tarea> listaTarea=tsl.findAll("GGGGG32323235555555551111G33",3);
-        jsonResult = tsl.findAll("GGGGG32323235555555551111G33", 1);
+        jsonResult = tsl.findAll("8888BB", 0);
         if (jsonResult.getSuccess()) {
             List<Tarea> listaTarea = (List<Tarea>) jsonResult.getResult();
+            System.out.println("Tamanio:"+listaTarea.size());
             for (Tarea tarea : listaTarea) {
-                System.out.println("+-+" + tarea.getId_usuario() + "+-+" + "+-+" + tarea.getId() + "+-+" + "+-+" + "+-+" + tarea.getProceso() + "+-+");
+                System.out.println("+-+" + tarea.getId_usuario() + "+-+" + "+-+" + tarea.getId() + "+-+" + "+-+" + "+-+" + tarea.getDestinatario() + "+-+"+ "+-+" + tarea.getRol() + "+-+"+ tarea.getEstado() + "+-+"+ tarea.getFecha() + "+-+");
+            }
+        }else{
+            System.out.println(jsonResult.getResult().toString());
+        }
+    }
+
+    @Test
+    public void paginadorTareaRol() {
+        System.out.println("Cargando........");
+        JsonResult jsonResult = null;
+        //List<Tarea> listaTarea=tsl.findAll("GGGGG32323235555555551111G33",3);
+        jsonResult = tsl.findByRolPaging("analista", 0);
+        if (jsonResult.getSuccess()) {
+            List<Tarea> listaTarea = (List<Tarea>) jsonResult.getResult();
+            System.out.println("Tamanio:"+listaTarea.size());
+            for (Tarea tarea : listaTarea) {
+                System.out.println("+-+" + tarea.getId_usuario() + "+-+" + "+-+" + tarea.getId() + "+-+" + "+-+" + "+-+" + tarea.getDestinatario() + "+-+"+ "+-+" + tarea.getRol() + "+-+"+ tarea.getEstado() + "+-+"+ tarea.getFecha() + "+-+");
             }
         }else{
             System.out.println(jsonResult.getResult().toString());
@@ -270,6 +293,22 @@ public void testListTarea() throws ClassNotFoundException, SQLException {
             List<Mensaje> listaMensaje = (List<Mensaje>) jsonResult.getResult();
             for (Mensaje mensaje : listaMensaje) {
                 System.out.println("+-+" + mensaje.getId_usuario() + "+-+" + "+-+" + mensaje.getId() + "+-+" + "+-+" + "+-+" + mensaje.getCuerpo() + "+-+");
+            }
+        }else{
+            System.out.println(jsonResult.getResult().toString());
+        }
+    }*/
+
+    /*@Test
+    public void paginadorMensajes() {
+        System.out.println("Cargando........");
+        JsonResult jsonResult = null;
+        //List<Tarea> listaTarea=tsl.findAll("GGGGG32323235555555551111G33",1);
+        jsonResult = tsl.findByRolPaging("ANALISTA", 7);
+        if (jsonResult.getSuccess()) {
+            List<Tarea> listaTarea = (List<Tarea>) jsonResult.getResult();
+            for (Tarea tarea : listaTarea) {
+                System.out.println("+-+" + tarea.getId_usuario() + "+-+" + "+-+" + tarea.getId() + "+-+" + "+-+" + "+-+" + tarea.getDestinatario() + "+-+"+ "+-+" + tarea.getRol() + "+-+"+ tarea.getEstado() + "+-+"+ tarea.getFecha() + "+-+");
             }
         }else{
             System.out.println(jsonResult.getResult().toString());

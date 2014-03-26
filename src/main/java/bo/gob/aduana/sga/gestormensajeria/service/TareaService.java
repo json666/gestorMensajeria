@@ -81,7 +81,7 @@ public interface TareaService {
      *
      * @return lista de documentos
      */
-    public JsonResult findAll(String id, int pagina);
+        public JsonResult findAll(String id, int pagina);
     /**
      * Retorna la lista de todos los documentos de la coleccion con el tipo rol
      *
@@ -91,5 +91,13 @@ public interface TareaService {
 
     
     public  Tarea findById(String id);
+
+    /*
+     *Author: Jheyson Sanchez
+     *Descripcion: Metodo para la busqueda por Rol mas la paginacion
+     *Fecha: 26/03/2014
+     *
+     */
+    public JsonResult findByRolPaging(String rol, int pagina);
 
 }

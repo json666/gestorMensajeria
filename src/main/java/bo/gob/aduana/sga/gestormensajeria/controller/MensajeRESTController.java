@@ -127,5 +127,16 @@ public class MensajeRESTController {
         System.out.println("ingresando al servicio para modificacion..........................");
         return messageTask.edit(tarea);
     }
-    
+
+    /*
+	 * Author:Jheyson Sanchez
+	 * Descripcion: Creacion del servicio paginado mas rol.
+	 * Fecha:26/03/2014
+	 */
+    @RequestMapping(value = "/tareas/rol/{rol}/pagina/{paging}", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResult listByRolPaging(@PathVariable String rol, @PathVariable int paging) {
+        return new JsonResult(true, tareaService.findByRolPaging(rol,paging));
+    }
+
 }

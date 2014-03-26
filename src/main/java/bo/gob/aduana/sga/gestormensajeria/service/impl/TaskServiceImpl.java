@@ -26,7 +26,8 @@ public class TaskServiceImpl implements TareaService {
 	@Autowired
 	TareaRepository tareaRepository;
 
-	public Tarea getByAsunto(String asunto) {
+
+    public Tarea getByAsunto(String asunto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -103,20 +104,31 @@ public class TaskServiceImpl implements TareaService {
 	// return new JsonResult(true, tareaRepository.findByUser(rol, pageable));
 	// }
 
-	@Override
-	public JsonResult findAll(String id_usuario, int pagina) {
-		// TODO Auto-generated method stub
-		logger.debug("Pagina solicitada {}", pagina);
-		String ordenCampo = "id_usuario";
-		PageRequest page = new PageRequest(pagina, 7, Direction.ASC,
-				ordenCampo);
-		List<Tarea> lista = tareaRepository.findByDisabledFalse(id_usuario,page);
-		logger.debug("Registros recuperados {}", lista.size());
-		if (lista == null || lista.size() == 0) {
-			return new JsonResult(false, "No existen registros.");
-		}
-		return new JsonResult(true, lista);
-	}
+    @Override
+    public JsonResult findAll(String id_usuario, int pagina) {
+        // TODO Auto-generated method stub
+        logger.debug("Pagina solicitada {}", pagina);
+        String ordenCampo = "id_usuario";
+        PageRequest page = new PageRequest(pagina,5, Direction.ASC,ordenCampo);
+        List<Tarea> lista = tareaRepository.findByRol(id_usuario, page);
+        logger.debug("Registros recuperados {}", lista.size());
+        if (lista == null || lista.size() == 0) {
+            return new JsonResult(false, "No existen registros.");
+        }
+        return new JsonResult(true, lista);
+    }
+
+    @Override
+    public JsonResult findByRolPaging(String rol, int pagina) {
+        String ordenCampo = "id_usuario";
+        PageRequest page = new PageRequest(pagina,5, Direction.ASC,ordenCampo);
+        List<Tarea> lista = tareaRepository.findByRolPaging(rol.toUpperCase(), page);
+        logger.debug("Registros recuperados {}", lista.size());
+        if (lista == null || lista.size() == 0) {
+            return new JsonResult(false, "No existen registros.");
+        }
+        return new JsonResult(true, lista);
+    }
 
 	@Override
 	public List<Tarea> findByRol(String rol) {
@@ -130,6 +142,8 @@ public class TaskServiceImpl implements TareaService {
 		tarea=tareaRepository.findOne(id);
 		return tarea;
 	}
+
+
 
 
 
