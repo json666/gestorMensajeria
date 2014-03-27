@@ -11,7 +11,7 @@ import bo.gob.aduana.sga.core.domain.document.Documento;
 
 /**
  * 
- * @author mcardenas
+ * @author jsanchez
  * 
  */
 /*

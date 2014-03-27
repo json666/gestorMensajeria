@@ -20,28 +20,28 @@ public interface TareaService {
     /**
      * Crear nuevo mensaje 
      *
-     * @param mensaje envia la solicitud de Mensaje en JSON
+     * mensaje envia la solicitud de Mensaje en JSON
      */
     public Tarea crear(Tarea tarea) throws ValidacionException;
 
     /**
      * Modificar mensaje existente
      *
-     * @param asunto existente en formato JSON
+     * asunto existente en formato JSON
      */
     public Tarea modificar(Tarea tarea) throws ValidacionException, NullDeclaracionException;
 
     /**
      * Eliminar un mensaje
      *
-     * @param declaracion mensaje que se desea eliminar
+     * declaracion mensaje que se desea eliminar
      */
     public void eliminar(Tarea tarea) throws NullDeclaracionException;
 
     /**
      * Eliminar un mensaje por Asunto
      *
-     * @param Asunto o Referencia
+     * Asunto o Referencia
      * @throws NullDeclaracionException
      */
     public void eliminarMensaje(String asunto) throws NullDeclaracionException;
@@ -63,7 +63,7 @@ public interface TareaService {
     /**
      * Retorna la lista de Mensajes que tengan un estado especificado
      *
-     * @param estado El estado del mensaje como string
+     * El estado del mensaje como string
      * @return lista de declaraciones
      */
     public List<Tarea> listByAsunto(String asunto,String cuerpo, String pie);
@@ -71,7 +71,7 @@ public interface TareaService {
     /**
      * Retorna la lista de Mensajes de un usuario, rol y sucursal en especifico
      *
-     * @param resultado mensaje como string
+     * resultado mensaje como string
      * @return lista las tareas de un usuario, rol y sucursal
      */
     public List<Tarea> findByUserAndRolSucursal(String id_usuario, String rol, String suc);

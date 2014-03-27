@@ -92,7 +92,6 @@ public class MensajeServiceImpl implements MensajeService{
 
     @Override
     public JsonResult findAll(String id, int pagina) {
-        // TODO Auto-generated method stub
         String ordenCampo = "id_usuario";
         PageRequest page = new PageRequest(pagina, 7, Direction.ASC,
                 ordenCampo);

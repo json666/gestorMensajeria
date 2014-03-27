@@ -24,6 +24,7 @@ import org.springframework.jms.core.MessageCreator;
 import bo.gob.aduana.sga.core.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.service.MessageTask;
 
+
 public class MessageTaskImpl implements MessageTask<Tarea> {
 	
 	@Autowired

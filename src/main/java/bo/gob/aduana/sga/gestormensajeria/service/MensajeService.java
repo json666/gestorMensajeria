@@ -30,7 +30,7 @@ public interface MensajeService {
 	/**
 	 * Modificar mensaje existente
 	 * 
-	 * @param asunto
+	 * asunto
 	 *            existente en formato JSON
 	 */
 	public Mensaje modificar(Mensaje mensaje) throws ValidacionException,
@@ -39,7 +39,7 @@ public interface MensajeService {
 	/**
 	 * Eliminar un mensaje
 	 * 
-	 * @param declaracion
+	 * declaracion
 	 *            mensaje que se desea eliminar
 	 */
 	public void eliminar(Mensaje mensaje) throws NullDeclaracionException;
@@ -47,7 +47,7 @@ public interface MensajeService {
 	/**
 	 * Eliminar un mensaje por Asunto
 	 * 
-	 * @param Asunto
+	 * Asunto
 	 *            o Referencia
 	 * @throws NullDeclaracionException
 	 */
@@ -63,7 +63,7 @@ public interface MensajeService {
 	/**
 	 * Retorna la lista de Mensajes que tengan un estado especificado
 	 * 
-	 * @param estado
+	 * estado
 	 *            El estado del mensaje como string
 	 * @return lista de declaraciones
 	 */

@@ -109,7 +109,7 @@ public class TaskServiceImpl implements TareaService {
         // TODO Auto-generated method stub
         logger.debug("Pagina solicitada {}", pagina);
         String ordenCampo = "id_usuario";
-        PageRequest page = new PageRequest(pagina,5, Direction.ASC,ordenCampo);
+        PageRequest page = new PageRequest(pagina,10, Direction.ASC,ordenCampo);
         List<Tarea> lista = tareaRepository.findByRol(id_usuario, page);
         logger.debug("Registros recuperados {}", lista.size());
         if (lista == null || lista.size() == 0) {
@@ -121,7 +121,7 @@ public class TaskServiceImpl implements TareaService {
     @Override
     public JsonResult findByRolPaging(String rol, int pagina) {
         String ordenCampo = "id_usuario";
-        PageRequest page = new PageRequest(pagina,5, Direction.ASC,ordenCampo);
+        PageRequest page = new PageRequest(pagina,10, Direction.ASC,ordenCampo);
         List<Tarea> lista = tareaRepository.findByRolPaging(rol.toUpperCase(), page);
         logger.debug("Registros recuperados {}", lista.size());
         if (lista == null || lista.size() == 0) {

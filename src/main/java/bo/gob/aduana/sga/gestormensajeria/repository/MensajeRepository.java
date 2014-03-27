@@ -1,6 +1,6 @@
 package bo.gob.aduana.sga.gestormensajeria.repository;
 /**
- * mcardenas
+ * jsanchez
  */
 
 import java.util.List;

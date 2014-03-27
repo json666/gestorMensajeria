@@ -30,7 +30,7 @@ import bo.gob.aduana.sga.gestormensajeria.service.TareaService;
 import bo.gob.aduana.sga.gestormensajeria.test.utils.SpringMongoConfig;
 
 /**
- * @author mcardenas
+ * @author jsanchez
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -42,8 +42,8 @@ public class MensajeTest {
     private final MongoOperations mongoOperations = (MongoOperations) context
             .getBean("mongoTemplate");
 
-//	@Autowired
-//	MessageSender<Mensaje> msg;
+    @Autowired
+    MessageSender<Mensaje> msg;
 //
 //	@Autowired
 //	MensajeService msl;
@@ -57,70 +57,56 @@ public class MensajeTest {
     @Autowired
     EmailNotificationService emailService;
 
-//	//@Test
-//	public void sendMensaje() {
-//
-//		
-//		String mg = "{\"tipo\" : \"email\",\"remitente\" : \"Marco Test\",\"time\" : null,\"fecha\" : \"2014-01-23 17:19:57\",\"cuerpo\" : \"Esto es una prueba\",\"objetoProcesado\" : null,\"estado\" : \"ok\",\"destinatario\" : \"Proyecto\",\"id_usuario\":\"A123456\",\"ntramite\":\"2014/201/C-1011\"}";
-//		
-//		System.out.println("Mensaje creado es: " + msg);
-//
-//	}
-//
-//	//@Test	
-//	public void enviarMensajeTarea() {
-//		String mg = "{\"tipo\" : \"Actualizacipon de datos\",\"remitente\" : \"jheyson sanchez\",\"tiempo\" : null,\"fecha\" : \"\",\"cuerpo\":\"queue-topic\",\"destinatario\" : \"Banco ganadera S.A.\",\"url\" : \"www.altavista.com\",\"accion\" : \"procesar\",\"proceso\" : \"Padron de Operadores\",\"tipoTramite\" : \"Actualizacion de Operadores\",\"nroTramite\" : \"2014-231-0156\",\"estado\" : \"Observado\",\"rol\":\"ANALISTA\",\"sucursal\":\"SANTA CRUZ\",\"id_usuario\":\"A123456\"}";
-//	}
-//
-@Test
-public void testListTarea() throws ClassNotFoundException, SQLException {
 
-    List<Tarea> mensajeListTarea = tsl.listAll();
-    System.out.println("LISTA DE TAREAS debe contener elementos: "
-            + mensajeListTarea.size());
-    for (Iterator iterator = mensajeListTarea.iterator(); iterator
-            .hasNext(); ) {
-        Tarea tarea = (Tarea) iterator.next();
-        System.out.println("-------------------o----------------------");
-        System.out.println("value 1:" + tarea.getId_usuario());
-        System.out.println("value 2:" + tarea.getTipo().toString());
+    @Test
+    public void testListTarea() throws ClassNotFoundException, SQLException {
 
+        List<Tarea> mensajeListTarea = tsl.listAll();
+        System.out.println("LISTA DE TAREAS debe contener elementos: "
+                + mensajeListTarea.size());
+        for (Iterator iterator = mensajeListTarea.iterator(); iterator
+                .hasNext(); ) {
+            Tarea tarea = (Tarea) iterator.next();
+            System.out.println("-------------------o----------------------");
+            System.out.println("value 1:" + tarea.getId_usuario());
+            System.out.println("value 2:" + tarea.getTipo().toString());
+
+        }
     }
-}
-//	
-//	//@Test
-//	public void testListarPorUsuario(){
-//		List<Tarea> mensajeListTarea = tsl.listbyIdUser("");
-//		System.out.println("LISTA DE TAREAS debe contener elementos: "
-//				+ mensajeListTarea.size());
-//		for (Iterator iterator = mensajeListTarea.iterator(); iterator
-//				.hasNext();) {
-//			Tarea tarea = (Tarea) iterator.next();
-//			System.out.println("-------------------o----------------------");
-//			System.out.println("value 1:" + tarea.getId_usuario());
-//			System.out.println("value 2:" + tarea.getTipo());
-//
-//		}
-//	}
-//	
-//	
-//	//@Test
-//	public void testListarUsuarioSucursal(){
-//		List<Tarea> mensajeListTarea = tsl.findByUserAndRolSucursal("SANTA CRUZ","ANALISTA","A123456");
-//		System.out.println("LISTA DE TAREAS debe contener elementos: "
-//				+ mensajeListTarea.size());
-//		for (Iterator iterator = mensajeListTarea.iterator(); iterator
-//				.hasNext();) {
-//			Tarea tarea = (Tarea) iterator.next();
-//			System.out.println("-------------------o----------------------");
-//			System.out.println("value 1:" + tarea.getId_usuario());
-//			System.out.println("value 2:" + tarea.getSucursal());
-//			System.out.println("value 3:" + tarea.getRol());
-//			System.out.println("value 4:" + tarea.getRemitente());
-//			System.out.println("value 5:" + tarea.getTipoTramite());
-//
-//		}
-//	}
+
+    @Test
+    public void testListarPorUsuario() {
+        List<Tarea> mensajeListTarea = tsl.listbyIdUser("1111");
+        System.out.println("LISTA DE TAREAS debe contener elementos: "
+                + mensajeListTarea.size());
+        for (Iterator iterator = mensajeListTarea.iterator(); iterator
+                .hasNext(); ) {
+            Tarea tarea = (Tarea) iterator.next();
+            System.out.println("-------------------o----------------------");
+            System.out.println("value 1:" + tarea.getId_usuario());
+            System.out.println("value 2:" + tarea.getTipo());
+
+        }
+    }
+
+
+    @Test
+    public void testListarUsuarioSucursal() {
+        List<Tarea> mensajeListTarea = tsl.findByUserAndRolSucursal("SANTA CRUZ", "ANALISTA", "A123456");
+        System.out.println("LISTA DE TAREAS debe contener elementos: "
+                + mensajeListTarea.size());
+        for (Iterator iterator = mensajeListTarea.iterator(); iterator
+                .hasNext(); ) {
+            Tarea tarea = (Tarea) iterator.next();
+            System.out.println("-------------------o----------------------");
+            System.out.println("value 1:" + tarea.getId_usuario());
+            System.out.println("value 2:" + tarea.getSucursal());
+            System.out.println("value 3:" + tarea.getRol());
+            System.out.println("value 4:" + tarea.getRemitente());
+            System.out.println("value 5:" + tarea.getTipoTramite());
+
+        }
+    }
 
     @Test
     public void testSendTarea() {
@@ -165,21 +151,21 @@ public void testListTarea() throws ClassNotFoundException, SQLException {
 //		emailService.sendEmail(beanMail);
 //	}
 
-//	//@Test
-//	public void sendEmail(){
-//		Mensaje mensaje= new Mensaje(TipoMensaje.CORREO,
-//				"jheyson sanchez",
-//				"13/03/2014",
-//				"Esto es un email de tipo notificacion",
-//				"ENVIADO",
-//				"Gerson Veramendi Verastegui",
-//				"A565645444",
-//				"588533333444");
-//		msg.send(mensaje);
-//
-//	}
+    @Test
+    public void sendNotificacion() {
+        Mensaje mensaje = new Mensaje(TipoMensaje.CORREO,
+                "jheyson sanchez",
+                "13/03/2014",
+                "Esto es un email de tipo notificacion",
+                "ENVIADO",
+                "Gerson Veramendi Verastegui",
+                "A565645444",
+                "588533333444");
+        msg.send(mensaje);
 
-    //@Test
+    }
+
+    @Test
     public void listarRol() {
         List<Tarea> mensajeListTarea = (List<Tarea>) tsl.findByRol("ANALISTA");
         System.out.println("LISTA DE TAREAS debe contener elementos: "
@@ -226,8 +212,6 @@ public void testListTarea() throws ClassNotFoundException, SQLException {
     //@Test
     public void modificarTareaEstado() {
         Tarea tarea = tsl.findById("49cf426e-feb3-4cae-a9a7-f4a52d117831");
-
-
 //		Tarea tarea = new Tarea(
 //				TipoMensaje.NOTIFICACION,
 //				"osvalo contreras", 
@@ -254,7 +238,7 @@ public void testListTarea() throws ClassNotFoundException, SQLException {
         System.out.println("Cargando........");
         JsonResult jsonResult = null;
         //List<Tarea> listaTarea=tsl.findAll("GGGGG32323235555555551111G33",3);
-        jsonResult = tsl.findAll("8888BB", 0);
+        jsonResult = tsl.findAll("223vv", 0);
         if (jsonResult.getSuccess()) {
             List<Tarea> listaTarea = (List<Tarea>) jsonResult.getResult();
             System.out.println("Tamanio:"+listaTarea.size());
