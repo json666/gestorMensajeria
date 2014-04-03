@@ -121,47 +121,44 @@ public class MensajeTest {
         opciones.add(opc1);
 
         Tarea tarea = new Tarea(TipoMensaje.NOTIFICACION,
-                "juan apaza",
-                "26/03/2013",
-                "yolanda nina",
-                "calderon",
+                "juan adolfo",
+                "31/03/2013",
+                "esto es una prueba de registro tarea",
+                "oscar calderon",
                 opciones,
-                "ver proceso",
-                "PROCESAR",
-                "07",
-                "procesar",
+                "Padron de Operadores",
+                "Actualizacion de datos",
+                "",
+                TipoMensaje.ESTADO_EN_ESPERA,
                 "analista",
-                "tarija",
-                "9999CC");
+                "beni",
+                "9999CC",
+                "IMPORTADORES MUNDO SHOW");
         System.out.println("OBJETO TAREA");
-        for(int i=0;i<=10;i++){
+        for(int i=0;i<=5;i++){
             task.send(tarea);
         }
 
         System.out.println("Mensaje creado es: " + task);
     }
 
-//	@Test
-//	public void sendMail(){
-//		MessageEmailBean beanMail;
-//		beanMail= new MessageEmailBean();
-//		beanMail.setTo("jheysonsanchez@gmail.com");
-//		beanMail.setSubject("Esto es una prueba de correo electronico..........");
-//		beanMail.setContent("Contenido basico");
-//		emailService.sendEmail(beanMail);
-//	}
 
     @Test
     public void sendNotificacion() {
         Mensaje mensaje = new Mensaje(TipoMensaje.CORREO,
-                "jheyson sanchez",
-                "13/03/2014",
-                "Esto es un email de tipo notificacion",
-                "ENVIADO",
-                "Gerson Veramendi Verastegui",
-                "A565645444",
-                "588533333444");
-        msg.send(mensaje);
+                "remitente",
+                "Esto es una prueba de envio de notificacion",
+                "destinatario",
+                "nro_tramite",
+                "tipo tramite",
+                "asunto mensaje",
+                "02/04/2014",
+                "588533333444",
+                "Por definir");
+        for (int i = 1; i < 20; i++) {
+            JsonResult jsonResult = msg.send(mensaje);
+            System.out.println("Respuesta:" + jsonResult.getSuccess());
+        }
 
     }
 
@@ -243,7 +240,7 @@ public class MensajeTest {
             List<Tarea> listaTarea = (List<Tarea>) jsonResult.getResult();
             System.out.println("Tamanio:"+listaTarea.size());
             for (Tarea tarea : listaTarea) {
-                System.out.println("+-+" + tarea.getId_usuario() + "+-+" + "+-+" + tarea.getId() + "+-+" + "+-+" + "+-+" + tarea.getDestinatario() + "+-+"+ "+-+" + tarea.getRol() + "+-+"+ tarea.getEstado() + "+-+"+ tarea.getFecha() + "+-+");
+                System.out.println("+-+" + tarea.getId_usuario() + "+-+" + "+-+" + tarea.getId() + "+-+" + "+-+" + "+-+" + tarea.getDestinatario() + "+-+"+ "+-+" + tarea.getRol() + "+-+"+ tarea.getEstado() + "+-+"+ tarea.getFechaRegistro() + "+-+");
             }
         }else{
             System.out.println(jsonResult.getResult().toString());
@@ -260,11 +257,51 @@ public class MensajeTest {
             List<Tarea> listaTarea = (List<Tarea>) jsonResult.getResult();
             System.out.println("Tamanio:"+listaTarea.size());
             for (Tarea tarea : listaTarea) {
-                System.out.println("+-+" + tarea.getId_usuario() + "+-+" + "+-+" + tarea.getId() + "+-+" + "+-+" + "+-+" + tarea.getDestinatario() + "+-+"+ "+-+" + tarea.getRol() + "+-+"+ tarea.getEstado() + "+-+"+ tarea.getFecha() + "+-+");
+                System.out.println("+-+" + tarea.getId_usuario() + "+-+" + "+-+" + tarea.getId() + "+-+" + "+-+" + "+-+" + tarea.getDestinatario() + "+-+"+ "+-+" + tarea.getRol() + "+-+"+ tarea.getEstado() + "+-+"+ tarea.getFechaRegistro() + "+-+");
             }
         }else{
             System.out.println(jsonResult.getResult().toString());
         }
+    }
+
+    @Test
+    public void listarTareaRolEstado() {
+        System.out.println("Cargando........");
+        JsonResult jsonResult = null;
+        List<Tarea> listaTarea = tsl.findByRolEstado("ANALISTA", "registrado");
+        if (listaTarea.size() > 0)
+            for (Tarea tarea : listaTarea) {
+                System.out.println("+-+" + tarea.getId_usuario() + "+-+" + "+-+" + tarea.getId() + "+-+" + "+-+" + "+-+" + tarea.getDestinatario() + "+-+" + "+-+" + tarea.getRol() + "+-+" + tarea.getEstado() + "+-+" + tarea.getFechaRegistro() + "+-+" + tarea.getRazonSocial());
+            }
+        else {
+            System.out.println("No se encontraron registros.....");
+        }
+
+
+    }
+    @Test
+    public void paginadorTareaRolEstado() {
+        System.out.println("Cargando........");
+        JsonResult jsonResult = null;
+        //List<Tarea> listaTarea=tsl.findAll("GGGGG32323235555555551111G33",3);
+        jsonResult = tsl. findByRolEstadoPaginado("plataformo", TipoMensaje.ESTADO_EN_ESPERA, 1);
+        if (jsonResult.getSuccess()) {
+            List<Tarea> listaTarea = (List<Tarea>) jsonResult.getResult();
+            System.out.println("Tamanio:"+listaTarea.size());
+            for (Tarea tarea : listaTarea) {
+                System.out.println("+-+" + tarea.getId_usuario() + "+-+" + "+-+" + tarea.getId() + "+-+" + "+-+" + "+-+" + tarea.getDestinatario() + "+-+"+ "+-+" + tarea.getRol() + "+-+"+ tarea.getEstado() + "+-+"+ tarea.getFechaRegistro() + "+-+");
+            }
+        }else{
+            System.out.println(jsonResult.getResult().toString());
+        }
+    }
+
+    @Test
+    public void desabilitarTarea() {
+        System.out.println("Cargando........");
+        JsonResult jsonResult = null;
+        jsonResult=task.disableTask("4abcfe43-9106-4cdb-af64-1e7aa7ac62f9");
+        System.out.println(jsonResult.getResult());
     }
 
     /*@Test

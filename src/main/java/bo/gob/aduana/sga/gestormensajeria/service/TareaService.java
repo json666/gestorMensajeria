@@ -100,4 +100,12 @@ public interface TareaService {
      */
     public JsonResult findByRolPaging(String rol, int pagina);
 
+    public JsonResult findByRolEstadoPaginado(String rol, String estado,  int pagina);
+
+    public List<Tarea> findByRolEstado(String rol, String estado);
+
+    public JsonResult disableTask(Tarea tarea);
+
+
+
 }

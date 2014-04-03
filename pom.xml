@@ -65,11 +65,11 @@
 		</dependency>
 
 		<!--Spring Data MongoDB -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-			<version>1.3.3.RELEASE</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>1.4.1.RELEASE</version>
+        </dependency>
 
 		<!-- Spring Mail -->
 		<dependency>
@@ -228,7 +228,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>s-gestor-mensajeria</finalName>
+		<finalName>b-gestor-mensajeria</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -288,7 +288,7 @@
 		<profile>
 			<id>dev</id>
 			<properties>
-				<mongo.host>10.0.4.73</mongo.host>
+				<mongo.host>localhost</mongo.host>
 				<mongo.port>27017</mongo.port>
 				<mongo.dbname>msg</mongo.dbname>
 				<mongo.username />
@@ -319,11 +319,11 @@
 				<activemq.password>sga_q_test</activemq.password>
 				<activemq.transacted_session>true</activemq.transacted_session>
 				<activemq.timeout>1000</activemq.timeout>
-				<activemq.test.url>tcp://10.100.70.119:61716</activemq.test.url>
-				<activemq.test.user>sga_q_test</activemq.test.user>
-				<activemq.test.password>sga_q_test</activemq.test.password>
-				<activemq.test.transacted_session>true</activemq.test.transacted_session>
-				<activemq.test.timeout>1000</activemq.test.timeout>
+				<activemq.test.url/>
+				<activemq.test.user/>
+				<activemq.test.password/>
+				<activemq.test.transacted_session/>
+				<activemq.test.timeout/>
 			</properties>
 		</profile>
 		<profile>

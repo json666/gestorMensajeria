@@ -2,14 +2,12 @@ package bo.gob.aduana.sga.gestormensajeria.service;
 
 import bo.gob.aduana.sga.core.gestormensajeria.bean.MessageEmailBean;
 
+import javax.mail.MessagingException;
 
 
 public interface EmailNotificationService {
+
 	
-	public MessageEmailBean sendEmail(MessageEmailBean mail);
-	
-	public MessageEmailBean sendMailFormat(MessageEmailBean mail);
-	
-	public MessageEmailBean sendMailByVelocity(MessageEmailBean mail);
+	public MessageEmailBean sendMailByVelocity(MessageEmailBean mail) throws MessagingException;
 
 }

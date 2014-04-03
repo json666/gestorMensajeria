@@ -37,11 +37,11 @@ public class MensajeRESTController {
 	private MessageTask<Tarea> messageTask;
 
 
-	@RequestMapping(value = "/mensajes", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/mensajes", method = RequestMethod.GET)
 	@ResponseBody
 	public JsonResult listAll() {
 		return new JsonResult(true, mensajesService.listAll());
-	}
+	}*/
 
 	@RequestMapping(value = "/mensajes/cliente/{id_user}", method = RequestMethod.GET)
 	@ResponseBody
@@ -49,22 +49,11 @@ public class MensajeRESTController {
 		return new JsonResult(true, mensajesService.findByUser(id_user));
 	}
 
-	@RequestMapping(value = "/enviar", method = RequestMethod.POST, headers = "Content-Type=application/json")
+	@RequestMapping(value = "/mensaje", method = RequestMethod.POST, headers = "Content-Type=application/json")
 	public @ResponseBody
 	JsonResult create(@RequestBody Mensaje message) {
-		System.out
-				.println("************************Enviando Mensaje**************");
-		messageSender.send(message);
-		return new JsonResult(true, null);
-	}
-
-	@RequestMapping(value = "/enviar/tarea", method = RequestMethod.POST)
-	public @ResponseBody
-	JsonResult createTask(@RequestBody String message) {
-		System.out
-				.println("************************Enviando Mensaje**************");
-		// messageTask.send(message);
-		return new JsonResult(true, null);
+		System.out.println("************************Enviando Mensaje**************");
+		return messageSender.send(message);
 	}
 
 	@RequestMapping(value = "/tareas", method = RequestMethod.GET)
@@ -138,5 +127,13 @@ public class MensajeRESTController {
     public JsonResult listByRolPaging(@PathVariable String rol, @PathVariable int paging) {
         return new JsonResult(true, tareaService.findByRolPaging(rol,paging));
     }
+
+    @RequestMapping(value = "/tareas/rol/{rol}/estado/{estado}", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResult listByRolEstado(@PathVariable String rol, @PathVariable String estado) {
+        return new JsonResult(true, tareaService.findByRolEstado(rol.toUpperCase(), estado.toUpperCase()));
+    }
+
+    
 
 }

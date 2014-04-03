@@ -17,6 +17,8 @@ import bo.gob.aduana.sga.gestormensajeria.service.EmailNotificationService;
 import bo.gob.aduana.sga.gestormensajeria.service.impl.EmailNotificationServiceImpl;
 import bo.gob.aduana.sga.gestormensajeria.test.utils.SpringMongoConfig;
 
+import javax.mail.MessagingException;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/testDispatcher.xml"})
 public class EmailTest {
@@ -24,35 +26,25 @@ public class EmailTest {
     @Autowired
     private EmailNotificationService emailNotificationService;
 
-    //@Test
-    public void enviaMailFormatTest() {
-        System.out.println("EnviaMailFormat...");
-        MessageEmailBean messageEmailBean = new MessageEmailBean();
-        List<String> to = new ArrayList<String>();
-        to.add("osanchez@aduana.gob.bo");
-        to.add("rloza@aduana.gob.bo");
-        messageEmailBean.setTo(to);
-        messageEmailBean.setSubject("Test con Formato Html!");
-        messageEmailBean.setContent("Mensaje de Prueba <b>negrita</b><br>.");
-        messageEmailBean = emailNotificationService
-                .sendMailFormat(messageEmailBean);
-        Assert.assertTrue("No se logro enviar el Mail con formato Html",
-                messageEmailBean.getStatus().equals("OK"));
-        System.out.println("EnviaMailFormat...");
-    }
 
-    //@Test
+    @Test
     public void enviaMailWithVelocityTest() {
         System.out.println("EnviaMailWithVelocity...");
+
         MessageEmailBean messageEmailBean = new MessageEmailBean();
-        List<String> to = new ArrayList<String>();
-        to.add("osanchez@aduana.gob.bo");
-        to.add("jheysonsanchez@gmail.com");
-        messageEmailBean.setTo(to);
-        messageEmailBean.setSubject("Test con Plantilla Velocity!");
-        messageEmailBean.setContent("Mensaje de Prueba.");
-        messageEmailBean.setNameTemplate("templateEmail.vm");
-        messageEmailBean = emailNotificationService.sendMailByVelocity(messageEmailBean);
+        try {
+            List<String> to = new ArrayList<String>();
+            to.add("osanchez@aduana.gob.bo");
+            to.add("jheysonsanchez@gmail.com");
+            messageEmailBean.setTo(to);
+            messageEmailBean.setSubject("Test con Plantilla Velocity!");
+            messageEmailBean.setContent("Mensaje de Prueba.");
+            messageEmailBean.setNameTemplate("templateEmail.vm");
+
+            messageEmailBean = emailNotificationService.sendMailByVelocity(messageEmailBean);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
         Assert.assertTrue("No se logro enviar el Mail Velocity", messageEmailBean.getStatus().equals("OK"));
         System.out.println("EnviaMailWithVelocity...");
     }

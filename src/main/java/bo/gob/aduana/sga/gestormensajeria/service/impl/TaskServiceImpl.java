@@ -5,10 +5,12 @@ import java.util.UUID;
 
 import bo.gob.aduana.sga.core.gestormensajeria.model.Tarea;
 import bo.gob.aduana.sga.gestormensajeria.utils.JsonResult;
+import bo.gob.aduana.sga.gestormensajeria.utils.TipoCriterio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
@@ -89,20 +91,6 @@ public class TaskServiceImpl implements TareaService {
 				id);
 	}
 
-	// @Override
-	// public JsonResult findAll(int pagina) {
-	// // logger.debug("Pagina solicitada {}", pagina);
-	//
-	// String ordenCampo = "descripcion";
-	// PageRequest page = new PageRequest(pagina, 50, Direction.ASC,
-	// ordenCampo);
-	// List<Tarea> lista = tareaRepository.findByDisabledFalse(page);
-	// // logger.debug("Registros recuperados {}", lista.size());
-	// if (lista == null || lista.size() == 0) {
-	// return new JsonResult(false, "No existen registros.");
-	// }
-	// return new JsonResult(true, tareaRepository.findByUser(rol, pageable));
-	// }
 
     @Override
     public JsonResult findAll(String id_usuario, int pagina) {
@@ -113,7 +101,7 @@ public class TaskServiceImpl implements TareaService {
         List<Tarea> lista = tareaRepository.findByRol(id_usuario, page);
         logger.debug("Registros recuperados {}", lista.size());
         if (lista == null || lista.size() == 0) {
-            return new JsonResult(false, "No existen registros.");
+            return new JsonResult(false, TipoCriterio.CRITERIO_INEXISTENCIA_REGISTRO);
         }
         return new JsonResult(true, lista);
     }
@@ -125,23 +113,60 @@ public class TaskServiceImpl implements TareaService {
         List<Tarea> lista = tareaRepository.findByRolPaging(rol.toUpperCase(), page);
         logger.debug("Registros recuperados {}", lista.size());
         if (lista == null || lista.size() == 0) {
-            return new JsonResult(false, "No existen registros.");
+            return new JsonResult(false, TipoCriterio.CRITERIO_INEXISTENCIA_REGISTRO);
         }
         return new JsonResult(true, lista);
     }
 
-	@Override
+
+
+    @Override
+    public JsonResult findByRolEstadoPaginado(String rol, String estado, int pagina) {
+        String ordenCampo = "id_usuario";
+        PageRequest page = new PageRequest(pagina,10, Direction.ASC,ordenCampo);
+
+        List<Tarea> lista = tareaRepository.findByRolStatusPaging(rol.toUpperCase(), estado.toUpperCase(), page);
+        logger.debug("Registros recuperados {}", lista.size());
+        if (lista == null || lista.size() == 0) {
+            return new JsonResult(false, TipoCriterio.CRITERIO_INEXISTENCIA_REGISTRO);
+        }
+        return new JsonResult(true, lista);
+    }
+
+
+
+    @Override
 	public List<Tarea> findByRol(String rol) {
-        return (List<Tarea>) tareaRepository.findByRolIgnoreCase(rol);
+        Sort sort= new Sort(Sort.Direction.DESC, TipoCriterio.CRITERIO_ORDENAR_BANDEJA_TAREA);
+        return (List<Tarea>) tareaRepository.findByRolAndDisabled(rol, sort);
 	}
 
+    @Override
+    public List<Tarea> findByRolEstado(String rol, String estado) {
+        return (List<Tarea>) tareaRepository.findByRolAndEstado(rol.toUpperCase(), estado);
+    }
 
-	@Override
+    @Override
+    public JsonResult disableTask(Tarea tarea) {
+        JsonResult jsonResult = null;
+        try {
+            tareaRepository.save(tarea);
+            jsonResult= new JsonResult(true,"El Registro fue desabilitado");
+        } catch (Exception e) {
+            jsonResult = new JsonResult(false, "El Registro no fue desabilitado");
+            e.printStackTrace();
+        }
+        return jsonResult;
+    }
+
+
+    @Override
 	public Tarea findById(String id) {
 		Tarea tarea=null;
 		tarea=tareaRepository.findOne(id);
 		return tarea;
 	}
+
 
 
 
